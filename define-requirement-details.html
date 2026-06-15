@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Define Requirement Details</title>
-<link rel="stylesheet" href="assets/styles.css?v=3">
+<link rel="stylesheet" href="assets/styles.css?v=4">
 </head>
 <body>
 <div class="app" id="app">
@@ -46,8 +46,9 @@
         </div>
 
         <div style="margin-top:14px; display:flex; gap:18px;">
-          <button class="add-link"><span class="circ">+</span> Add Course</button>
-          <button class="add-link"><span class="circ">+</span> Add Subject</button>
+          <button class="add-link" onclick="openTray('trayCourse')"><span class="circ">+</span> Add Course</button>
+          <button class="add-link" onclick="openTray('trayComponent')"><span class="circ">+</span> Add Component</button>
+          <button class="add-link" onclick="openTray('traySubject')"><span class="circ">+</span> Add Subject</button>
         </div>
       </div>
 
@@ -58,9 +59,80 @@
     </div>
   </main>
 </div>
-<script src="assets/app.js?v=3"></script>
+<!-- Add Course tray -->
+<div class="tray-overlay" id="trayCourse">
+  <div class="tray" role="dialog" aria-modal="true" aria-label="Add Course">
+    <div class="tray-head"><h3>Add Course</h3><button class="tray-close" onclick="closeTray('trayCourse')" aria-label="Close">&times;</button></div>
+    <div class="tray-body">
+      <p class="muted" style="font-size:12px; margin:0 0 16px;">Select a specific course from a partner institution.</p>
+      <div class="field"><label><span class="star">*</span> Institution</label><select class="select"><option>Select an institution…</option><option>UCLA</option><option>USC</option></select></div>
+      <div class="field"><label><span class="star">*</span> Course</label><select class="select"><option>Search a course</option><option>ENGL 101 — College Composition</option></select></div>
+      <div class="field"><label>Display Title</label><input class="input" placeholder="Display title"></div>
+      <div class="field"><label>Course Notes</label><textarea class="textarea"></textarea></div>
+      <div class="field"><label><span class="star">*</span> Minimum Grade</label><select class="select"><option>Select a grade</option><option>C</option><option>B</option><option>A</option></select></div>
+      <label class="ccs-check" style="margin-top:4px;">
+        <input type="checkbox">
+        <span class="box"><svg viewBox="0 0 12 12" fill="none"><path d="M1 6l3.5 3.5L11 2.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="lbl">Home Institution Only<span class="sub">This entire requirement section must be completed at the student's home institution.</span></span>
+      </label>
+    </div>
+    <div class="tray-foot">
+      <button class="btn btn-outline btn-md" onclick="closeTray('trayCourse')">Cancel</button>
+      <button class="btn btn-primary btn-md" onclick="closeTray('trayCourse')">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Component tray -->
+<div class="tray-overlay" id="trayComponent">
+  <div class="tray" role="dialog" aria-modal="true" aria-label="Add Component">
+    <div class="tray-head"><h3>Add Component</h3><button class="tray-close" onclick="closeTray('trayComponent')" aria-label="Close">&times;</button></div>
+    <div class="tray-body">
+      <p class="muted" style="font-size:12px; margin:0 0 16px;">Define a top-level section of this requirement, such as "Required Core" or "List A."</p>
+      <div class="field"><label><span class="star">*</span> Component</label><select class="select"><option>Select One</option><option>Required Core</option><option>List A</option></select></div>
+      <div class="field"><label><span class="star">*</span> Display Title</label><input class="input" placeholder="Enter a clear, descriptive name"></div>
+      <div class="field"><label>Component notes</label><input class="input" placeholder="Enter a clear, descriptive name for this collaborative"></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+        <div class="field"><label><span class="star">*</span> Minimum Grade</label><select class="select"><option>Select</option><option>C</option><option>B</option><option>A</option></select></div>
+        <div class="field"><label>Pick X courses</label><select class="select"><option>1</option><option>2</option><option>3</option></select></div>
+      </div>
+      <div class="field"><label>Exclude subjects (comma separated) courses</label><select class="select"><option>None</option></select></div>
+    </div>
+    <div class="tray-foot">
+      <button class="btn btn-outline btn-md" onclick="closeTray('trayComponent')">Cancel</button>
+      <button class="btn btn-primary btn-md" onclick="closeTray('trayComponent')">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Subject tray -->
+<div class="tray-overlay" id="traySubject">
+  <div class="tray" role="dialog" aria-modal="true" aria-label="Add Subject">
+    <div class="tray-head"><h3>Add Subject</h3><button class="tray-close" onclick="closeTray('traySubject')" aria-label="Close">&times;</button></div>
+    <div class="tray-body">
+      <div class="field"><label><span class="star">*</span> Institution</label><select class="select"><option>Select an institution…</option><option>UCLA</option><option>USC</option></select></div>
+      <div class="field"><label><span class="star">*</span> Subject (Course prefix)</label><input class="input" placeholder="e.g. MATH"></div>
+      <div class="field"><label>Display Title</label><input class="input" placeholder="Display title"></div>
+      <div class="field"><label>Subject Notes</label><textarea class="textarea"></textarea></div>
+      <div class="field"><label><span class="star">*</span> Minimum Grade</label><select class="select"><option>Select a grade</option><option>C</option><option>B</option><option>A</option></select></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+        <div class="field"><label><span class="star">*</span> Minimum course level</label><select class="select"><option>Select</option><option>100</option><option>200</option></select></div>
+        <div class="field"><label><span class="star">*</span> Pick X courses</label><select class="select"><option>1</option><option>2</option><option>3</option></select></div>
+      </div>
+    </div>
+    <div class="tray-foot">
+      <button class="btn btn-outline btn-md" onclick="closeTray('traySubject')">Cancel</button>
+      <button class="btn btn-primary btn-md" onclick="closeTray('traySubject')">Save</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/app.js?v=4"></script>
 <script>
 mountChrome([{label:'Admin', href:'dashboard.html'}, {label:'Regional Collaboratives', href:'collaboratives.html'}, {label:'Registered Nursing (RN)', href:'program-detail.html'}, {label:'Define Requirement Details'}]);
+function openTray(id){ document.getElementById(id).classList.add('show'); }
+function closeTray(id){ document.getElementById(id).classList.remove('show'); }
+document.querySelectorAll('.tray-overlay').forEach(ov=>ov.addEventListener('click',e=>{ if(e.target===ov) ov.classList.remove('show'); }));
 function save(){ flashToast('Requirement details saved'); go('program-detail.html'); }
 </script>
 </body>
