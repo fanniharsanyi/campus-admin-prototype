@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Define Requirement Details</title>
+<link rel="stylesheet" href="assets/styles.css?v=3">
+</head>
+<body>
+<div class="app" id="app">
+  <main>
+    <div class="page">
+      <button class="back-link" onclick="go('program-detail.html')"><span class="chev-left"></span> Back</button>
+      <h1 class="h1" style="margin-top:12px;">Define Requirement Details</h1>
+      <p class="lead">Set the courses that fulfill this requirement.</p>
+
+      <div class="card">
+        <h2 class="card-title">Requirement details</h2>
+        <p class="card-sub" style="margin-top:4px;">This requirement was set by the program administrator. Add the courses or subjects from your institution that fulfill it.</p>
+        <div style="display:grid; grid-template-columns:2fr 1fr; gap:18px;">
+          <div class="field" style="margin:0;"><label><span class="star">*</span> Name <span class="muted">(Required)</span></label><input class="input" value="English Composition" disabled></div>
+          <div class="field" style="margin:0;"><label><span class="star">*</span> Credit <span class="muted">(Required)</span></label><input class="input" value="3" disabled></div>
+        </div>
+        <span class="tag-hio" style="margin-top:8px;">Home institution only</span>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">Program Requirement Details</h2>
+
+        <div style="border-left:3px solid var(--c-link); padding-left:16px; margin-top:16px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin:0 0 12px;">
+            <p style="font-weight:700; font-size:14px; margin:0;">Add Course</p>
+            <button class="row-menu" aria-label="Remove course" title="Remove course"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg></button>
+          </div>
+          <div style="display:grid; grid-template-columns:2fr 1fr; gap:18px;">
+            <div class="field"><label><span class="star">*</span> Course</label><select class="select"><option>Search a course</option><option>ENGL 101 — College Composition</option></select></div>
+            <div class="field"><label><span class="star">*</span> Min Grade</label><select class="select"><option>Select</option><option>C</option><option>B</option><option>A</option></select></div>
+          </div>
+          <div class="field"><label><span class="star">*</span> Display Title</label><input class="input" placeholder="Enter a clear, descriptive name for this collaborative"></div>
+          <div class="field"><label><span class="star">*</span> Description</label><textarea class="textarea" placeholder="Lorem Ipsum"></textarea></div>
+          <label class="ccs-check" style="margin-top:4px;">
+            <input type="checkbox">
+            <span class="box"><svg viewBox="0 0 12 12" fill="none"><path d="M1 6l3.5 3.5L11 2.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="lbl">Home Institution Only<span class="sub">This entire requirement section must be completed at the student's home institution.</span></span>
+          </label>
+        </div>
+
+        <div style="margin-top:14px; display:flex; gap:18px;">
+          <button class="add-link"><span class="circ">+</span> Add Course</button>
+          <button class="add-link"><span class="circ">+</span> Add Subject</button>
+        </div>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-primary btn-md" onclick="save()">Save</button>
+        <button class="btn btn-transparent btn-md" onclick="go('program-detail.html')">Cancel</button>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="assets/app.js?v=3"></script>
+<script>
+mountChrome([{label:'Admin', href:'dashboard.html'}, {label:'Regional Collaboratives', href:'collaboratives.html'}, {label:'Registered Nursing (RN)', href:'program-detail.html'}, {label:'Define Requirement Details'}]);
+function save(){ flashToast('Requirement details saved'); go('program-detail.html'); }
+</script>
+</body>
+</html>
