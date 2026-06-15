@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edit Collaborative</title>
+<link rel="stylesheet" href="assets/styles.css?v=1">
+</head>
+<body>
+<div class="app" id="app">
+  <main>
+    <div class="page">
+      <button class="back-link" onclick="go('collab-detail.html')"><span class="chev-left"></span> Back</button>
+      <h1 class="h1" style="margin-top:12px;">Edit Collaborative</h1>
+      <p class="lead">Edit collaborative settings and participating institutions.</p>
+
+      <div class="segmented" role="tablist">
+        <button class="tab" role="tab" aria-selected="true" id="tab-basic" onclick="switchTab('basic')">Basic Information</button>
+        <button class="tab" role="tab" aria-selected="false" id="tab-inst" onclick="switchTab('inst')">Institution Partners</button>
+      </div>
+
+      <section id="panel-basic" class="card">
+        <h2 class="card-title">General Information</h2>
+        <p class="card-sub">Define the core details of your collaborative, including its name and a brief description.</p>
+        <div class="field">
+          <label><span class="star">*</span> Name</label>
+          <input class="input" value="Southern CA Health Sciences Network">
+        </div>
+        <div class="field">
+          <label><span class="star">*</span> Description</label>
+          <textarea class="textarea">Connecting Southern California colleges to expand access to health sciences programs — from nursing to pharmacy technology.</textarea>
+        </div>
+      </section>
+
+      <section id="panel-inst" class="card hide">
+        <h2 class="card-title">Participating Institutions</h2>
+        <p class="card-sub">Add or remove the institutions taking part in this collaborative.</p>
+        <div class="search-row"><input class="input" placeholder="Search name…"><button class="btn btn-outline btn-md">Search</button></div>
+        <p class="count-line">2 institutions selected</p>
+        <div class="inst-list" id="instList"></div>
+      </section>
+
+      <div class="card-actions">
+        <button class="btn btn-transparent btn-md" onclick="go('collab-detail.html')">Cancel</button>
+        <button class="btn btn-primary btn-md" onclick="save()">Save</button>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="assets/app.js?v=1"></script>
+<script>
+mountChrome([{label:'Admin', href:'dashboard.html'}, {label:'Regional Collaboratives', href:'collaboratives.html'}, {label:'Southern CA Health Sciences Network', href:'collab-detail.html'}, {label:'Edit Collaborative'}]);
+
+function switchTab(which){
+  const basic = which === 'basic';
+  document.getElementById('tab-basic').setAttribute('aria-selected', basic);
+  document.getElementById('tab-inst').setAttribute('aria-selected', !basic);
+  document.getElementById('panel-basic').classList.toggle('hide', !basic);
+  document.getElementById('panel-inst').classList.toggle('hide', basic);
+}
+
+const insts = [['UCLA',true],['USC',true],['UC San Diego',false],['Cal State Long Beach',false],['UC Irvine',false],['Cal Poly Pomona',false]];
+document.getElementById('instList').innerHTML = insts.map(i=>
+  checkbox(`<span class="lbl">${i[0]}</span>`, {checked:i[1]})
+).join('');
+
+function save(){ flashToast('Changes saved'); go('collab-detail.html'); }
+</script>
+</body>
+</html>

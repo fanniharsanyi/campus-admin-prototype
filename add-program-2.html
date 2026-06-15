@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Add Program · Access &amp; Guidance</title>
+<link rel="stylesheet" href="assets/styles.css?v=1">
+</head>
+<body>
+<div class="app" id="app">
+  <main>
+    <div class="page">
+      <button class="back-link" onclick="go('add-program-1.html')"><span class="chev-left"></span> Back</button>
+      <h1 class="h1" style="margin-top:12px;">Add Program</h1>
+      <p class="lead">Define how this collaborative program works, including its settings.</p>
+
+      <div class="stepper">
+        <div class="step done"><span class="dot">&#10003;</span><span class="label">Basic Information</span></div>
+        <div class="step-line done"></div>
+        <div class="step active"><span class="dot">2</span><span class="label">Access &amp; Guidance</span></div>
+        <div class="step-line"></div>
+        <div class="step pending"><span class="dot">3</span><span class="label">Appearance</span></div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">Enrollment Governance</h2>
+        <p class="card-sub">Manage how student eligibility and seat allocation are prioritized across participating institutions.</p>
+        <div class="field" style="max-width:340px;">
+          <select class="select"><option>Priority Enrollment</option><option>Open Enrollment</option></select>
+        </div>
+        <p class="muted" style="font-size:12px; margin-top:-6px;">Enable automated priority access for collaborative students.</p>
+
+        <p style="font-weight:600; font-size:13px; margin:18px 0 6px;">Institution Priority Order</p>
+        <p class="muted" style="font-size:12px; margin:0 0 12px;">Drag to reorder. The institution at the top will receive first priority for available seats.</p>
+        <div class="priority-list" id="priority">
+          <div class="priority-row"><span class="handle">&#8942;&#8942;</span><span class="pname">UCLA</span><span class="moves"><button data-m="down" aria-label="Move down">&#8595;</button><button data-m="up" aria-label="Move up">&#8593;</button></span></div>
+          <div class="priority-row"><span class="handle">&#8942;&#8942;</span><span class="pname">USC</span><span class="moves"><button data-m="down" aria-label="Move down">&#8595;</button><button data-m="up" aria-label="Move up">&#8593;</button></span></div>
+          <div class="priority-row"><span class="handle">&#8942;&#8942;</span><span class="pname">UC San Diego</span><span class="moves"><button data-m="down" aria-label="Move down">&#8595;</button><button data-m="up" aria-label="Move up">&#8593;</button></span></div>
+          <div class="priority-row"><span class="handle">&#8942;&#8942;</span><span class="pname">Cal State Long Beach</span><span class="moves"><button data-m="down" aria-label="Move down">&#8595;</button><button data-m="up" aria-label="Move up">&#8593;</button></span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">Student Experience</h2>
+        <p class="card-sub">Customize the student experience by editing the "how it works" steps and managing guidance options.</p>
+
+        <div id="howChk" style="margin-bottom:14px;"></div>
+        <div id="howBox">
+          <p style="font-weight:600; font-size:13px; color:var(--c-link); margin:0 0 8px;">How It Works</p>
+          <div style="display:grid; gap:10px; max-width:560px;">
+            <div class="field" style="margin:0;"><label>Step 1</label><input class="input" value="Browse approved courses across partner colleges"></div>
+            <div class="field" style="margin:0;"><label>Step 2</label><input class="input" value="Confirm eligibility with your home institution"></div>
+            <div class="field" style="margin:0;"><label>Step 3</label><input class="input" value="Enroll and track progress toward your credential"></div>
+          </div>
+          <div style="margin-top:12px; display:flex; gap:16px; align-items:center;">
+            <button class="btn btn-outline btn-sm">Add step</button>
+            <a href="#" style="font-weight:600; font-size:12px;">Reset to default</a>
+          </div>
+        </div>
+
+        <hr style="border:0; border-top:1px solid var(--gray-200); margin:22px 0;">
+
+        <div id="contactChk" style="margin-bottom:14px;"></div>
+        <div id="contactBox">
+          <p style="font-weight:600; font-size:13px; color:var(--c-link); margin:0 0 14px;">Contact information</p>
+          <div class="field" style="max-width:340px;"><label>Phone</label><input class="input" placeholder="Placeholder"></div>
+
+          <div class="contact-row">
+            <div class="ct-left">
+              <div class="field"><label>Link #1 Icon</label><select class="select"><option>Right Arrow</option><option>Globe</option><option>Link</option></select></div>
+              <div class="field"><label>Link #1 Text</label><input class="input" placeholder="Placeholder"></div>
+            </div>
+            <div class="field"><label>Link #1 URL</label><input class="input" placeholder="Placeholder"></div>
+          </div>
+          <div class="contact-row">
+            <div class="ct-left">
+              <div class="field"><label>Link #2 Icon</label><select class="select"><option>Right Arrow</option><option>Globe</option><option>Link</option></select></div>
+              <div class="field"><label>Link #2 Text</label><input class="input" placeholder="Placeholder"></div>
+            </div>
+            <div class="field"><label>Link #2 URL</label><input class="input" placeholder="Placeholder"></div>
+          </div>
+          <div class="contact-row" style="margin-bottom:0;">
+            <div class="field"><label>CTA Button Text</label><input class="input" placeholder="Placeholder"></div>
+            <div class="field"><label>CTA Button URL</label><select class="select"><option>Placeholder</option></select></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-transparent btn-md" onclick="go('collab-detail.html')">Cancel</button>
+        <button class="btn btn-outline btn-md" onclick="go('add-program-1.html')">Back</button>
+        <button class="btn btn-primary btn-md" onclick="go('add-program-3.html')">Next</button>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="assets/app.js?v=1"></script>
+<script>
+mountChrome([{label:'Admin', href:'dashboard.html'}, {label:'Regional Collaboratives', href:'collaboratives.html'}, {label:'Southern CA Health Sciences Network', href:'collab-detail.html'}, {label:'Add Program'}]);
+
+// custom checkboxes that toggle their sections
+document.getElementById('howChk').innerHTML = checkbox('<span class="lbl">Show How It Works Box<span class="sub">Display a "How it works" guide on the student page. You can customize the steps to explain how the program works.</span></span>', {checked:true});
+document.getElementById('contactChk').innerHTML = checkbox('<span class="lbl">Contact information<span class="sub">Show a contact information section that helps students get support, including contacting an advisor for course selection.</span></span>', {checked:true});
+
+makeReorderable(document.getElementById('priority'));
+
+// toggle section visibility from the checkboxes
+document.getElementById('howChk').querySelector('input').addEventListener('change', e=>{
+  document.getElementById('howBox').style.display = e.target.checked ? '' : 'none';
+});
+document.getElementById('contactChk').querySelector('input').addEventListener('change', e=>{
+  document.getElementById('contactBox').style.display = e.target.checked ? '' : 'none';
+});
+</script>
+</body>
+</html>

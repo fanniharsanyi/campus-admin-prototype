@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Southern CA Health Sciences Network</title>
+<link rel="stylesheet" href="assets/styles.css?v=1">
+</head>
+<body>
+<div class="app" id="app">
+  <main>
+    <div class="page">
+      <button class="back-link" onclick="go('collaboratives.html')"><span class="chev-left"></span> Back</button>
+
+      <div class="detail-head" style="margin-top:12px;">
+        <div class="detail-title-row">
+          <h1 class="h1">Southern CA Health Sciences Network</h1>
+          <span class="badge badge-draft" id="statusBadge">Draft</span>
+          <div class="detail-actions">
+            <a class="btn btn-outline btn-md" href="edit-collaborative.html">Edit</a>
+            <button class="btn btn-outline btn-md">Preview</button>
+            <button class="btn btn-primary btn-md" onclick="publish()">Publish</button>
+          </div>
+        </div>
+        <p class="detail-meta">Created by <b>James R. Holloway</b><br>Draft last saved on: 05.05.2024 | Created on: 05.05.2024</p>
+        <p class="detail-desc">Connecting Southern California colleges to expand access to health sciences programs — from nursing to pharmacy technology.</p>
+        <div class="partners"><span class="muted">Participating Institutions:</span> <span class="pill">UCLA</span> <span class="pill">USC</span></div>
+      </div>
+
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" aria-selected="true" id="tab-program" onclick="switchTab('program')">Program</button>
+        <button class="tab" role="tab" aria-selected="false" id="tab-admin" onclick="switchTab('admin')">Admin</button>
+      </div>
+
+      <!-- PROGRAM TAB -->
+      <section id="panel-program" class="card">
+        <div class="page-head" style="margin-bottom:16px;">
+          <p class="count-line grow" style="margin:0;">12 programs found</p>
+          <a class="btn btn-outline btn-md" href="import-equivalencies-upload.html">Import equivalencies</a>
+          <a class="btn btn-outline btn-md" href="add-program-1.html">Add Program</a>
+        </div>
+        <table class="table">
+          <thead><tr><th>Name</th><th>Status</th><th>Category</th><th>Start Term</th><th>End Term</th><th>Requirements</th><th></th></tr></thead>
+          <tbody>
+            <tr><td><a class="name-link" href="program-detail.html">Registered Nursing (RN)</a></td><td><span class="badge badge-published">Published</span></td><td>Patient Care</td><td>Spring 2024</td><td>Winter 2025</td><td>7</td><td><button class="row-menu" aria-label="Row actions">&#8942;</button></td></tr>
+            <tr><td><a class="name-link" href="program-detail.html">Licensed Vocational Nursing (LVN)</a></td><td><span class="badge badge-draft">Draft</span></td><td>Patient Care</td><td>Spring 2024</td><td>Winter 2025</td><td>7</td><td><button class="row-menu" aria-label="Row actions">&#8942;</button></td></tr>
+            <tr><td><a class="name-link" href="program-detail.html">Medical Assisting</a></td><td><span class="badge badge-published">Published</span></td><td>Clinical Support</td><td>Spring 2024</td><td>Winter 2025</td><td>7</td><td><button class="row-menu" aria-label="Row actions">&#8942;</button></td></tr>
+            <tr><td><a class="name-link" href="program-detail.html">Pharmacy Technology</a></td><td><span class="badge badge-draft">Draft</span></td><td>Pharmacy</td><td>Spring 2024</td><td>Winter 2025</td><td>7</td><td><button class="row-menu" aria-label="Row actions">&#8942;</button></td></tr>
+            <tr><td><a class="name-link" href="program-detail.html">Radiologic Technology</a></td><td><span class="badge badge-published">Published</span></td><td>Diagnostic Imaging</td><td>Spring 2024</td><td>Winter 2025</td><td>7</td><td><button class="row-menu" aria-label="Row actions">&#8942;</button></td></tr>
+            <tr><td><a class="name-link" href="program-detail.html">Respiratory Therapy</a></td><td><span class="badge badge-draft">Draft</span></td><td>Respiratory</td><td>Spring 2024</td><td>Winter 2025</td><td>7</td><td><button class="row-menu" aria-label="Row actions">&#8942;</button></td></tr>
+            <tr><td><a class="name-link" href="program-detail.html">Emergency Medical Technician (EMT)</a></td><td><span class="badge badge-published">Published</span></td><td>Urgent Care</td><td>Spring 2024</td><td>Winter 2025</td><td>7</td><td><button class="row-menu" aria-label="Row actions">&#8942;</button></td></tr>
+            <tr><td><a class="name-link" href="program-detail.html">Health Information Technology</a></td><td><span class="badge badge-draft">Draft</span></td><td>Health Administration</td><td>Spring 2024</td><td>Winter 2025</td><td>7</td><td><button class="row-menu" aria-label="Row actions">&#8942;</button></td></tr>
+          </tbody>
+        </table>
+        <div class="pager">
+          <button>&lsaquo; Prev</button>
+          <button class="active">1</button><button>2</button><button>3</button><button>4</button><button>5</button>
+          <button>…</button><button>138</button><button>Next &rsaquo;</button>
+          <span class="rpp">Results per page <select class="select"><option>10</option><option>25</option><option>50</option></select></span>
+        </div>
+      </section>
+      <section id="panel-admin" class="card hide">
+        <div class="page-head" style="margin-bottom:16px;">
+          <p class="count-line grow" style="margin:0;">12 campus admins</p>
+          <a class="btn btn-outline btn-md" href="invite-admin.html">Invite Campus Admin</a>
+        </div>
+        <table class="table">
+          <thead><tr><th>Name</th><th>Email</th><th>Date Invited</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>Adams, Brian T.</td><td>b.adams@cvc.edu</td><td>01.01.2026</td><td><button class="row-menu" aria-label="Remove administrator" title="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg></button></td></tr>
+            <tr><td>Alvarez, Carmen R.</td><td>c.alvarez@cvc.edu</td><td>01.01.2026</td><td><button class="row-menu" aria-label="Remove administrator" title="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg></button></td></tr>
+            <tr><td>Bennett, Susan L.</td><td>s.bennett@cvc.edu</td><td>01.01.2026</td><td><button class="row-menu" aria-label="Remove administrator" title="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg></button></td></tr>
+            <tr><td>Carter, David M.</td><td>d.carter@cvc.edu</td><td>01.01.2026</td><td><button class="row-menu" aria-label="Remove administrator" title="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg></button></td></tr>
+            <tr><td>Chen, Linda W.</td><td>l.chen@cvc.edu</td><td>01.01.2026</td><td><button class="row-menu" aria-label="Remove administrator" title="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg></button></td></tr>
+            <tr><td>Coleman, James A.</td><td>j.coleman@cvc.edu</td><td>01.01.2026</td><td><button class="row-menu" aria-label="Remove administrator" title="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg></button></td></tr>
+            <tr><td>Delgado, Patricia M.</td><td>p.delgado@cvc.edu</td><td>01.01.2026</td><td><button class="row-menu" aria-label="Remove administrator" title="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg></button></td></tr>
+            <tr><td>Edwards, Robert K.</td><td>r.edwards@cvc.edu</td><td>01.01.2026</td><td><button class="row-menu" aria-label="Remove administrator" title="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg></button></td></tr>
+          </tbody>
+        </table>
+        <div class="pager">
+          <button>&lsaquo; Prev</button>
+          <button class="active">1</button><button>2</button><button>3</button><button>4</button><button>5</button>
+          <button>…</button><button>138</button><button>Next &rsaquo;</button>
+          <span class="rpp">Results per page <select class="select"><option>10</option><option>25</option><option>50</option></select></span>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+<script src="assets/app.js?v=1"></script>
+<script>
+mountChrome([{label:'Admin', href:'dashboard.html'}, {label:'Regional Collaboratives', href:'collaboratives.html'}, {label:'Southern CA Health Sciences Network'}]);
+
+function switchTab(which) {
+  const isProgram = which === 'program';
+  document.getElementById('tab-program').setAttribute('aria-selected', isProgram);
+  document.getElementById('tab-admin').setAttribute('aria-selected', !isProgram);
+  document.getElementById('panel-program').classList.toggle('hide', !isProgram);
+  document.getElementById('panel-admin').classList.toggle('hide', isProgram);
+}
+
+// Honor a deep link like collab-detail.html#admin (used after inviting admins)
+if (location.hash === '#admin') switchTab('admin');
+
+function publish() {
+  confirmModal({
+    header: 'Publish collaborative',
+    title: 'Are you ready to publish this collaboration?',
+    body: 'After publishing, students will be able to view it, and no further edits can be made.',
+    confirmLabel: 'Publish',
+    onConfirm: () => { flashToast('Collaborative published'); go('collab-published.html'); }
+  });
+}
+</script>
+</body>
+</html>
