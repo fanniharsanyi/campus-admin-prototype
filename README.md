@@ -1,29 +1,25 @@
 # Campus admin — clickable prototype
 
-A pixel-faithful, clickable web prototype of the Campus admin (Program Transfer Guide) flow, built from the Collaboratives Figma and the CCS Component Library (CVC skin). Pure static HTML/CSS/JS — no build step.
+A pixel-faithful, clickable web prototype of the **Campus admin** flow (Program Transfer Guide requirements), built from the Collaboratives Figma "Campus Admin" and "Version 2" sections and the CCS Component Library (CVC skin). Pure static HTML/CSS/JS — no build step.
 
 ## The happy path
 
 ```
-dashboard.html              Administrator Dashboard
-  ├ collaboratives.html      Regional Collaboratives (list)
-  │   ├ create-collab-1/2     Create Collaborative wizard
-  │   └ collab-detail.html    Collaborative hub (Program / Admin tabs)
-  │       ├ edit-collaborative.html        Edit settings + partners
-  │       ├ add-program-1/2/3.html         Add Program wizard
-  │       │   └ program-detail.html        Program + PTG requirements
-  │       │       └ add-requirement.html   Requirement + courses
-  │       ├ invite-admin.html              Invite campus administrators
-  │       └ import-equivalencies-upload    ┐ Course equivalency CSV import
-  │           └ import-equivalencies-review ┘  (upload → review/errors → submit)
-  └ csv-imports.html          CSV import history (New Import → upload)
+dashboard.html            Administrator Dashboard
+  └ collaboratives.html    Regional Collaboratives (list)
+      └ program-detail.html    Program + PTG Requirements table
+          ├ add-requirement.html        Add Requirement (Version 2)
+          │     ├ Add Course / Add Subject  → slide-in trays
+          │     └ AND / OR course list
+          └ add-requirement-group.html  Add Requirement Group (AND/OR blocks)
 ```
 
-## What's distinct to the Campus admin flow
-- **Course equivalency CSV import** — upload a CSV, review a data preview with row-level error highlighting, then submit the valid rows.
-- **CSV imports history** with status badges and per-row download.
-- **Edit Collaborative** tabbed editor.
-- **PTG (Program Transfer Guide) requirements** with per-institution course scoping and a Grand Total Credits row.
+## What's in scope
+- **Campus Admin section** — the navigation: Dashboard → Regional Collaboratives → Program detail with the **PTG Requirements** table (grouped, Grand Total Credits row, Preview/Edit per row).
+- **Version 2 section** — the redesigned requirement authoring:
+  - **Add Requirement** with a live **Requirements list** (Course / Component / Subject items, colored by type, with edit/delete) and an **AND/OR** connector.
+  - **Add Course / Add Subject** as 480px **slide-in trays**.
+  - **Add Requirement Group** — multiple requirement blocks joined by **OR/AND** connectors, with display-title options.
 
 ## Updating
 Edit the files and `git push` — GitHub Pages redeploys in a minute or two. Asset links carry a `?v=N` cache-buster; bump it when CSS/JS changes so updates show without a hard refresh.

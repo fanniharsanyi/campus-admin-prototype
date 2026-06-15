@@ -529,6 +529,38 @@ main { flex: 1; }
 .cell-err svg { width: 16px; height: 16px; flex: none; }
 
 /* ============================================================
+   Version 2 — requirement authoring (Add Requirement / Group)
+   ============================================================ */
+.req-item { border: 1px solid var(--gray-300); border-left: 3px solid var(--c-link); border-radius: 6px; padding: 12px 14px; display: flex; align-items: center; gap: 12px; margin-bottom: 10px; background: #fff; }
+.req-item.t-course { border-left-color: #1953A8; }
+.req-item.t-component { border-left-color: #2B2F33; }
+.req-item.t-subject { border-left-color: #16A34A; }
+.req-item .grow { flex: 1; }
+.req-tag { display: inline-block; border: 1px solid var(--c-link); color: var(--c-link); border-radius: 999px; padding: 1px 10px; font-size: 11px; font-weight: 600; margin-bottom: 5px; }
+.req-name { font-weight: 700; font-size: 14px; }
+.req-meta { font-size: 12px; color: var(--gray-700); margin-top: 3px; }
+.req-meta .sep { margin: 0 8px; color: var(--gray-400); }
+.req-acts { display: flex; gap: 8px; flex: none; }
+.req-connector { display: flex; align-items: center; gap: 14px; margin: 0 0 10px; }
+.or-chip { display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--c-link); color: var(--c-link); border-radius: 6px; padding: 4px 12px; font-size: 12px; font-weight: 700; }
+.add-link { color: var(--c-link); font-weight: 600; font-size: 13px; display: inline-flex; align-items: center; gap: 7px; background: none; border: 0; cursor: pointer; font-family: inherit; padding: 0; }
+.add-link .circ { width: 18px; height: 18px; flex: none; border: 1.5px solid currentColor; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; line-height: 1; }
+.req-block { border-left: 3px solid var(--c-link); padding-left: 16px; margin-bottom: 8px; }
+.req-block-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.req-block-head .ttl { font-weight: 700; font-size: 14px; }
+
+/* slide-in tray (Add Course / Add Subject / Add Requirement) */
+.tray-overlay { position: fixed; inset: 0; background: rgba(33,33,33,.45); display: flex; justify-content: flex-end; z-index: 100; opacity: 0; pointer-events: none; transition: opacity .18s; }
+.tray-overlay.show { opacity: 1; pointer-events: auto; }
+.tray { width: 480px; max-width: 100vw; height: 100%; background: #fff; box-shadow: -8px 0 30px rgba(0,0,0,.22); transform: translateX(24px); transition: transform .2s; display: flex; flex-direction: column; }
+.tray-overlay.show .tray { transform: translateX(0); }
+.tray-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1px solid var(--gray-200); }
+.tray-head h3 { margin: 0; font-size: 16px; font-weight: 700; color: var(--c-content-text-highlight); }
+.tray-close { background: none; border: 0; font-size: 22px; line-height: 1; cursor: pointer; color: var(--gray-600); padding: 0 2px; }
+.tray-body { padding: 20px 22px; overflow: auto; flex: 1; }
+.tray-foot { padding: 16px 22px; border-top: 1px solid var(--gray-200); display: flex; justify-content: flex-end; gap: 12px; }
+
+/* ============================================================
    File upload control (add-program step 3)
    ============================================================ */
 .file-input {

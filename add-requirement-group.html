@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Add Requirement Group</title>
+<link rel="stylesheet" href="assets/styles.css?v=2">
+</head>
+<body>
+<div class="app" id="app">
+  <main>
+    <div class="page">
+      <button class="back-link" onclick="go('program-detail.html')"><span class="chev-left"></span> Back</button>
+      <h1 class="h1" style="margin-top:12px;">Add requirement group</h1>
+      <p class="lead">Define a group of requirements students must complete as part of this program.</p>
+
+      <div class="card">
+        <h2 class="card-title">Group details</h2>
+        <p class="card-sub" style="margin-top:4px;">This group will appear as a section in the program requirements. Students must complete all requirements within it.</p>
+        <div class="field" style="margin:0;"><label><span class="star">*</span> Name <span class="muted">(Required)</span></label><input class="input" placeholder="Group name"></div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">Define requirements</h2>
+        <div class="notice notice-info" role="status" style="margin-top:14px;">
+          <span class="nicon">i</span>
+          <span><b>Information:</b> Campus admins will add courses or subjects from their institution to fulfill this requirement. You can also add directly if needed.</span>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:18px;">
+          <div class="field" style="margin:0;"><label>Default display title</label><select class="select"><option>Take X course(s) from the following (OR)</option><option>Complete all of the following (AND)</option></select></div>
+          <div class="field" style="margin:0;"><label>Override display title</label><input class="input" placeholder="Optional"></div>
+        </div>
+
+        <div class="req-block">
+          <div class="req-block-head"><span class="ttl">Requirement</span>
+            <button class="row-menu" aria-label="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+          </div>
+          <div class="field"><label><span class="star">*</span> Requirement</label><select class="select"><option>Select One</option><option>English Composition</option><option>College Algebra</option></select></div>
+          <span class="tag-hio">Home institution only</span>
+          <div style="margin-top:10px;"><button class="add-link"><span class="circ">+</span> Add Course</button></div>
+        </div>
+
+        <div class="req-connector" style="margin:10px 0;"><span class="or-chip">OR</span></div>
+
+        <div class="req-block">
+          <div class="req-block-head"><span class="ttl">Requirement</span>
+            <button class="row-menu" aria-label="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+          </div>
+          <div class="field"><label><span class="star">*</span> Requirement</label><select class="select"><option>Select One</option><option>English Composition</option><option>College Algebra</option></select></div>
+          <div style="margin-top:10px;"><button class="add-link"><span class="circ">+</span> Add Course</button></div>
+        </div>
+
+        <div class="req-connector" style="margin:10px 0;"><span class="or-chip">OR</span> <button class="add-link"><span class="circ">+</span> Requirement</button></div>
+
+        <button class="add-link" style="margin-top:6px;"><span class="circ">+</span> Add Requirement</button>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-transparent btn-md" onclick="go('program-detail.html')">Cancel</button>
+        <button class="btn btn-primary btn-md" onclick="save()">Save</button>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="assets/app.js?v=2"></script>
+<script>
+mountChrome([{label:'Admin', href:'dashboard.html'}, {label:'Regional Collaboratives', href:'collaboratives.html'}, {label:'Registered Nursing (RN)', href:'program-detail.html'}, {label:'Add requirement group'}]);
+function save(){ sessionStorage.setItem('ccs_req_added','1'); flashToast('Requirement group added'); go('program-detail.html'); }
+</script>
+</body>
+</html>

@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Registered Nursing (RN)</title>
-<link rel="stylesheet" href="assets/styles.css?v=1">
+<link rel="stylesheet" href="assets/styles.css?v=2">
 </head>
 <body>
 <div class="app" id="app">
   <main>
     <div class="page">
-      <button class="back-link" onclick="go('collab-detail.html')"><span class="chev-left"></span> Back</button>
+      <button class="back-link" onclick="go('collaboratives.html')"><span class="chev-left"></span> Back</button>
 
       <div class="detail-head" style="margin-top:12px;">
         <div class="detail-title-row">
@@ -102,7 +102,7 @@
           </div>
           <div>
             <p class="dl-label" style="margin-bottom:10px;">Program Banner</p>
-            <img class="banner-img" src="assets/program-banner.jpg?v=1" alt="Program banner">
+            <img class="banner-img" src="assets/program-banner.jpg?v=2" alt="Program banner">
           </div>
         </div>
       </div>
@@ -114,9 +114,9 @@
     </div>
   </main>
 </div>
-<script src="assets/app.js?v=1"></script>
+<script src="assets/app.js?v=2"></script>
 <script>
-mountChrome([{label:'Admin', href:'dashboard.html'}, {label:'Regional Collaboratives', href:'collaboratives.html'}, {label:'Southern CA Health Sciences Network', href:'collab-detail.html'}, {label:'Registered Nursing (RN)'}]);
+mountChrome([{label:'Admin', href:'dashboard.html'}, {label:'Regional Collaboratives', href:'collaboratives.html'}, {label:'Registered Nursing (RN)'}]);
 
 const reqAdded = sessionStorage.getItem('ccs_req_added');
 const reqBody = document.getElementById('reqBody');
@@ -148,7 +148,7 @@ if (reqAdded) {
     </table>
     <div class="req-actions">
       <a class="btn btn-outline btn-md" href="add-requirement.html">Add requirement</a>
-      <a class="btn btn-outline btn-md" href="#">Organize into areas</a>
+      <a class="btn btn-outline btn-md" href="add-requirement-group.html">Organize into areas</a>
     </div>`;
 } else {
   reqBody.innerHTML = `
@@ -171,7 +171,7 @@ function tryPublish() {
     title: 'Are you ready to publish this program?',
     body: 'After publishing, students will be able to view it, and no further edits can be made.',
     confirmLabel: 'Publish',
-    onConfirm: () => { flashToast('Program published'); go('collab-detail.html#admin'); }
+    onConfirm: () => { flashToast('Program published'); go('collaboratives.html'); }
   });
 }
 </script>
