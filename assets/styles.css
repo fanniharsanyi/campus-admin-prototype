@@ -532,11 +532,15 @@ main { flex: 1; }
    Version 2 — requirement authoring (Add Requirement / Group)
    ============================================================ */
 .req-item { border: 1px solid var(--gray-300); border-left: 3px solid var(--c-link); border-radius: 6px; padding: 12px 14px; display: flex; align-items: center; gap: 12px; margin-bottom: 10px; background: #fff; }
-.req-item.t-course { border-left-color: #1953A8; }
-.req-item.t-component { border-left-color: #2B2F33; }
-.req-item.t-subject { border-left-color: #16A34A; }
+.req-item.t-course { border-left-color: #F59E0B; }     /* Course = amber/gold */
+.req-item.t-component { border-left-color: #10356B; }  /* Component = navy */
+.req-item.t-subject { border-left-color: #16A34A; }    /* Subject = green */
 .req-item .grow { flex: 1; }
-.req-tag { display: inline-block; border: 1px solid var(--c-link); color: var(--c-link); border-radius: 999px; padding: 1px 10px; font-size: 11px; font-weight: 600; margin-bottom: 5px; }
+/* default type label is small gray text; the colour is carried on the left edge.
+   (a selected item gets the blue pill via .req-tag.selected) */
+.req-tag { display: inline-block; font-size: 11px; font-weight: 600; color: var(--gray-700); margin-bottom: 5px; }
+.req-tag.selected { border: 1px solid var(--c-link); color: var(--c-link); border-radius: 999px; padding: 1px 10px; }
+.req-item.selected { border-left-color: var(--c-link); }
 .req-name { font-weight: 700; font-size: 14px; }
 .req-meta { font-size: 12px; color: var(--gray-700); margin-top: 3px; }
 .req-meta .sep { margin: 0 8px; color: var(--gray-400); }
