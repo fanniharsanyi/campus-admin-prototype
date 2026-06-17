@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Define Requirement Details</title>
-<link rel="stylesheet" href="assets/styles.css?v=7">
+<link rel="stylesheet" href="assets/styles.css?v=8">
 </head>
 <body>
 <div class="app" id="app">
@@ -22,7 +22,7 @@
           <div class="field" style="margin:0;"><label><span class="star">*</span> Credit <span class="muted">(Required)</span></label><input class="input" value="3" disabled></div>
         </div>
         <div class="field" style="margin:14px 0 0;"><label><span class="star">*</span> Default Subheading Text <span class="muted">(Required)</span></label><input class="input" value="Complete one approved English composition course." disabled></div>
-        <span class="tag-hio" style="margin-top:14px;">Home institution only</span>
+        <span class="tag-hio" id="reqHioTag" style="margin-top:14px; display:none;">Home institution only</span>
       </div>
 
       <div class="card">
@@ -33,47 +33,13 @@
           <span><b>Information:</b> Add the courses, components, or subjects from your institution that fulfill this requirement. Each one is listed below.</span>
         </div>
 
-        <div id="reqList" style="margin-top:14px;">
-          <div class="req-item t-course selected">
-            <div class="grow">
-              <span class="req-tag selected">Course</span>
-              <div class="req-name">ENGL 101 — College Composition</div>
-              <div class="req-meta">UCLA <span class="sep">|</span> Min Grade: C <span class="sep">|</span> English Composition</div>
-            </div>
-            <div class="req-acts">
-              <button class="row-menu" aria-label="Edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg></button>
-              <button class="row-menu" aria-label="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
-            </div>
-          </div>
-          <div class="req-item t-component">
-            <div class="grow">
-              <span class="req-tag">Component</span>
-              <div class="req-name">Required Core</div>
-              <div class="req-meta">UCLA <span class="sep">|</span> Min Grade: C <span class="sep">|</span> Pick 1 course</div>
-            </div>
-            <div class="req-acts">
-              <button class="row-menu" aria-label="Edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg></button>
-              <button class="row-menu" aria-label="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
-            </div>
-          </div>
-          <div class="req-item t-subject">
-            <div class="grow">
-              <span class="req-tag">Subject</span>
-              <div class="req-name">Mathematics</div>
-              <div class="req-meta">USC <span class="sep">|</span> Min Grade: C <span class="sep">|</span> Pick 2 courses (100+)</div>
-            </div>
-            <div class="req-acts">
-              <button class="row-menu" aria-label="Edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg></button>
-              <button class="row-menu" aria-label="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
-            </div>
-          </div>
-        </div>
+        <div id="reqList" style="margin-top:14px;"></div>
 
         <div class="req-connector">
           <select class="select" style="width:120px;"><option>AND</option><option>OR</option></select>
-          <button class="add-link" onclick="openTray('trayCourse')"><span class="circ">+</span> Add Course</button>
-          <button class="add-link" onclick="openTray('trayComponent')"><span class="circ">+</span> Add Component</button>
-          <button class="add-link" onclick="openTray('traySubject')"><span class="circ">+</span> Add Subject</button>
+          <button class="add-link" onclick="openTray('course')"><span class="circ">+</span> Add Course</button>
+          <button class="add-link" onclick="openTray('component')"><span class="circ">+</span> Add Component</button>
+          <button class="add-link" onclick="openTray('subject')"><span class="circ">+</span> Add Subject</button>
         </div>
       </div>
 
@@ -84,26 +50,28 @@
     </div>
   </main>
 </div>
+
 <!-- Add Course tray -->
 <div class="tray-overlay" id="trayCourse">
   <div class="tray" role="dialog" aria-modal="true" aria-label="Add Course">
-    <div class="tray-head"><h3>Add Course</h3><button class="tray-close" onclick="closeTray('trayCourse')" aria-label="Close">&times;</button></div>
+    <div class="tray-head"><h3 id="courseTitle">Add Course</h3><button class="tray-close" onclick="closeTray('trayCourse')" aria-label="Close">&times;</button></div>
     <div class="tray-body">
       <p class="muted" style="font-size:12px; margin:0 0 16px;">Select a specific course from a partner institution.</p>
-      <div class="field"><label><span class="star">*</span> Institution</label><select class="select"><option>Select an institution…</option><option>UCLA</option><option>USC</option></select></div>
-      <div class="field"><label><span class="star">*</span> Course</label><select class="select"><option>Search a course</option><option>ENGL 101 — College Composition</option></select></div>
-      <div class="field"><label>Display Title</label><input class="input" placeholder="Display title"></div>
-      <div class="field"><label>Course Notes</label><textarea class="textarea"></textarea></div>
-      <div class="field"><label><span class="star">*</span> Minimum Grade</label><select class="select"><option>Select a grade</option><option>C</option><option>B</option><option>A</option></select></div>
+      <div class="field"><label><span class="star">*</span> Institution</label><select class="select" id="c_inst"><option value="">Select an institution…</option><option>UCLA</option><option>USC</option><option>UC San Diego</option></select></div>
+      <div class="field"><label><span class="star">*</span> Course</label><select class="select" id="c_course"><option value="">Search a course</option><option>ENGL 101 — College Composition</option><option>MATH 101 — Calculus 1</option><option>BIOL 101 — General Biology</option></select></div>
+      <div class="field"><label>Display Title</label><input class="input" id="c_title" placeholder="Display title"></div>
+      <div class="field"><label>Course Notes</label><textarea class="textarea" id="c_notes"></textarea></div>
+      <div class="field"><label><span class="star">*</span> Minimum Grade</label><select class="select" id="c_grade"><option value="">Select a grade</option><option>C</option><option>B</option><option>A</option></select></div>
       <label class="ccs-check" style="margin-top:4px;">
-        <input type="checkbox">
+        <input type="checkbox" id="c_home">
         <span class="box"><svg viewBox="0 0 12 12" fill="none"><path d="M1 6l3.5 3.5L11 2.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         <span class="lbl">Home Institution Only<span class="sub">Students must complete this specific course at their home institution.</span></span>
       </label>
+      <p class="tray-note" id="c_home_note" style="display:none;">Set at the requirement level — this whole requirement is home-institution only.</p>
     </div>
     <div class="tray-foot">
       <button class="btn btn-outline btn-md" onclick="closeTray('trayCourse')">Cancel</button>
-      <button class="btn btn-primary btn-md" onclick="closeTray('trayCourse')">Save</button>
+      <button class="btn btn-primary btn-md" onclick="saveTray('course')">Save</button>
     </div>
   </div>
 </div>
@@ -111,21 +79,21 @@
 <!-- Add Component tray -->
 <div class="tray-overlay" id="trayComponent">
   <div class="tray" role="dialog" aria-modal="true" aria-label="Add Component">
-    <div class="tray-head"><h3>Add Component</h3><button class="tray-close" onclick="closeTray('trayComponent')" aria-label="Close">&times;</button></div>
+    <div class="tray-head"><h3 id="componentTitle">Add Component</h3><button class="tray-close" onclick="closeTray('trayComponent')" aria-label="Close">&times;</button></div>
     <div class="tray-body">
       <p class="muted" style="font-size:12px; margin:0 0 16px;">Define a top-level section of this requirement, such as "Required Core" or "List A."</p>
-      <div class="field"><label><span class="star">*</span> Component</label><select class="select"><option>Select One</option><option>Required Core</option><option>List A</option></select></div>
-      <div class="field"><label><span class="star">*</span> Display Title</label><input class="input" placeholder="Enter a clear, descriptive name"></div>
-      <div class="field"><label>Component notes</label><input class="input" placeholder="Enter a clear, descriptive name for this collaborative"></div>
+      <div class="field"><label><span class="star">*</span> Component</label><select class="select" id="m_comp"><option value="">Select One</option><option>Required Core</option><option>List A</option><option>List B</option></select></div>
+      <div class="field"><label><span class="star">*</span> Display Title</label><input class="input" id="m_title" placeholder="Enter a clear, descriptive name"></div>
+      <div class="field"><label>Component notes</label><input class="input" id="m_notes" placeholder="Enter a clear, descriptive name for this collaborative"></div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-        <div class="field"><label><span class="star">*</span> Minimum Grade</label><select class="select"><option>Select</option><option>C</option><option>B</option><option>A</option></select></div>
-        <div class="field"><label>Pick X courses</label><select class="select"><option>1</option><option>2</option><option>3</option></select></div>
+        <div class="field"><label><span class="star">*</span> Minimum Grade</label><select class="select" id="m_grade"><option value="">Select</option><option>C</option><option>B</option><option>A</option></select></div>
+        <div class="field"><label>Pick X courses</label><select class="select" id="m_pick"><option>1</option><option>2</option><option>3</option></select></div>
       </div>
-      <div class="field"><label>Exclude subjects (comma separated) courses</label><select class="select"><option>None</option></select></div>
+      <div class="field"><label>Exclude subjects (comma separated) courses</label><select class="select" id="m_exclude"><option>None</option></select></div>
     </div>
     <div class="tray-foot">
       <button class="btn btn-outline btn-md" onclick="closeTray('trayComponent')">Cancel</button>
-      <button class="btn btn-primary btn-md" onclick="closeTray('trayComponent')">Save</button>
+      <button class="btn btn-primary btn-md" onclick="saveTray('component')">Save</button>
     </div>
   </div>
 </div>
@@ -133,32 +101,147 @@
 <!-- Add Subject tray -->
 <div class="tray-overlay" id="traySubject">
   <div class="tray" role="dialog" aria-modal="true" aria-label="Add Subject">
-    <div class="tray-head"><h3>Add Subject</h3><button class="tray-close" onclick="closeTray('traySubject')" aria-label="Close">&times;</button></div>
+    <div class="tray-head"><h3 id="subjectTitle">Add Subject</h3><button class="tray-close" onclick="closeTray('traySubject')" aria-label="Close">&times;</button></div>
     <div class="tray-body">
-      <div class="field"><label><span class="star">*</span> Institution</label><select class="select"><option>Select an institution…</option><option>UCLA</option><option>USC</option></select></div>
-      <div class="field"><label><span class="star">*</span> Subject (Course prefix)</label><input class="input" placeholder="e.g. MATH"></div>
-      <div class="field"><label>Display Title</label><input class="input" placeholder="Display title"></div>
-      <div class="field"><label>Subject Notes</label><textarea class="textarea"></textarea></div>
-      <div class="field"><label><span class="star">*</span> Minimum Grade</label><select class="select"><option>Select a grade</option><option>C</option><option>B</option><option>A</option></select></div>
+      <div class="field"><label><span class="star">*</span> Institution</label><select class="select" id="s_inst"><option value="">Select an institution…</option><option>UCLA</option><option>USC</option><option>UC San Diego</option></select></div>
+      <div class="field"><label><span class="star">*</span> Subject (Course prefix)</label><input class="input" id="s_subject" placeholder="e.g. MATH"></div>
+      <div class="field"><label>Display Title</label><input class="input" id="s_title" placeholder="Display title"></div>
+      <div class="field"><label>Subject Notes</label><textarea class="textarea" id="s_notes"></textarea></div>
+      <div class="field"><label><span class="star">*</span> Minimum Grade</label><select class="select" id="s_grade"><option value="">Select a grade</option><option>C</option><option>B</option><option>A</option></select></div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-        <div class="field"><label><span class="star">*</span> Minimum course level</label><select class="select"><option>Select</option><option>100</option><option>200</option></select></div>
-        <div class="field"><label><span class="star">*</span> Pick X courses</label><select class="select"><option>1</option><option>2</option><option>3</option></select></div>
+        <div class="field"><label><span class="star">*</span> Minimum course level</label><select class="select" id="s_level"><option value="">Select</option><option>100</option><option>200</option></select></div>
+        <div class="field"><label><span class="star">*</span> Pick X courses</label><select class="select" id="s_pick"><option>1</option><option>2</option><option>3</option></select></div>
       </div>
     </div>
     <div class="tray-foot">
       <button class="btn btn-outline btn-md" onclick="closeTray('traySubject')">Cancel</button>
-      <button class="btn btn-primary btn-md" onclick="closeTray('traySubject')">Save</button>
+      <button class="btn btn-primary btn-md" onclick="saveTray('subject')">Save</button>
     </div>
   </div>
 </div>
 
-<script src="assets/app.js?v=7"></script>
+<script src="assets/app.js?v=8"></script>
 <script>
 mountChrome([{label:'Admin', href:'dashboard.html'}, {label:'Regional Collaboratives', href:'collaboratives.html'}, {label:'Registered Nursing (RN)', href:'program-detail.html'}, {label:'Define Requirement Details'}]);
-function openTray(id){ document.getElementById(id).classList.add('show'); }
+
+// Requirement-level home-institution-only (set by the super admin). When true,
+// every item under this requirement is home-only and the per-item toggle locks.
+const reqHomeOnly = false;
+
+const PENCIL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>';
+const TRASH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
+
+// Seed data — the courses/subjects/components this institution already added.
+let items = [
+  {type:'course', selected:true, institution:'UCLA', course:'ENGL 101 — College Composition', title:'English Composition', notes:'', grade:'C', home:true},
+  {type:'component', component:'Required Core', title:'Required Core', notes:'', grade:'C', pick:'1', exclude:'None'},
+  {type:'subject', institution:'USC', subject:'MATH', title:'Mathematics', notes:'', grade:'C', level:'100', pick:'2'},
+];
+
+let editIndex = null;
+const TYPE_LABEL = {course:'Course', component:'Component', subject:'Subject'};
+const TRAY_ID = {course:'trayCourse', component:'trayComponent', subject:'traySubject'};
+
+function nameOf(it){
+  if(it.type==='course') return it.course || it.title || 'Course';
+  if(it.type==='component') return it.title || it.component || 'Component';
+  return it.title || (it.subject ? it.subject + ' (Subject)' : 'Subject');
+}
+function metaOf(it){
+  const sep = ' <span class="sep">|</span> ';
+  if(it.type==='course') return [it.institution, 'Min Grade: '+it.grade, it.title||''].filter(Boolean).join(sep);
+  if(it.type==='component') return ['Min Grade: '+it.grade, 'Pick '+it.pick+' course'+(it.pick=='1'?'':'s')].join(sep);
+  return [it.institution, 'Min Grade: '+it.grade, 'Pick '+it.pick+' course'+(it.pick=='1'?'':'s')+' ('+it.level+'+)'].join(sep);
+}
+function isHome(it){ return reqHomeOnly || !!it.home; }
+
+function render(){
+  const list = document.getElementById('reqList');
+  list.innerHTML = items.map((it,i)=>`
+    <div class="req-item t-${it.type}${it.selected?' selected':''}">
+      <div class="grow">
+        <span class="req-tag${it.selected?' selected':''}">${TYPE_LABEL[it.type]}</span>${isHome(it)?'<span class="tag-hio sm">Home institution only</span>':''}
+        <div class="req-name">${nameOf(it)}</div>
+        <div class="req-meta">${metaOf(it)}</div>
+      </div>
+      <div class="req-acts">
+        <button class="row-menu" onclick="openTray('${it.type}',${i})" aria-label="Edit">${PENCIL}</button>
+        <button class="row-menu" onclick="removeItem(${i})" aria-label="Remove">${TRASH}</button>
+      </div>
+    </div>`).join('');
+  document.getElementById('reqHioTag').style.display = reqHomeOnly ? '' : 'none';
+}
+
+function setVal(id,v){ const el=document.getElementById(id); if(el) el.value = v==null?'':v; }
+function getVal(id){ const el=document.getElementById(id); return el ? el.value.trim() : ''; }
+
+function openTray(type, idx){
+  editIndex = (idx==null) ? null : idx;
+  const it = editIndex==null ? null : items[editIndex];
+  const titleId = {course:'courseTitle', component:'componentTitle', subject:'subjectTitle'}[type];
+  document.getElementById(titleId).textContent = (editIndex==null?'Add ':'Edit ')+TYPE_LABEL[type];
+
+  if(type==='course'){
+    setVal('c_inst', it&&it.institution); setVal('c_course', it&&it.course); setVal('c_title', it&&it.title);
+    setVal('c_notes', it&&it.notes); setVal('c_grade', it&&it.grade);
+    const home = document.getElementById('c_home');
+    const note = document.getElementById('c_home_note');
+    if(reqHomeOnly){ home.checked = true; home.disabled = true; note.style.display='block'; }
+    else { home.checked = it ? !!it.home : false; home.disabled = false; note.style.display='none'; }
+  } else if(type==='component'){
+    setVal('m_comp', it&&it.component); setVal('m_title', it&&it.title); setVal('m_notes', it&&it.notes);
+    setVal('m_grade', it&&it.grade); setVal('m_pick', (it&&it.pick)||'1'); setVal('m_exclude', (it&&it.exclude)||'None');
+  } else {
+    setVal('s_inst', it&&it.institution); setVal('s_subject', it&&it.subject); setVal('s_title', it&&it.title);
+    setVal('s_notes', it&&it.notes); setVal('s_grade', it&&it.grade); setVal('s_level', (it&&it.level)||''); setVal('s_pick', (it&&it.pick)||'1');
+  }
+  document.getElementById(TRAY_ID[type]).classList.add('show');
+}
 function closeTray(id){ document.getElementById(id).classList.remove('show'); }
+
+function saveTray(type){
+  let it;
+  if(type==='course'){
+    if(!getVal('c_inst') || !getVal('c_course') || !getVal('c_grade')){ liveToast('Pick an institution, course, and minimum grade'); return; }
+    it = {type:'course', institution:getVal('c_inst'), course:getVal('c_course'), title:getVal('c_title'), notes:getVal('c_notes'), grade:getVal('c_grade'), home:document.getElementById('c_home').checked};
+  } else if(type==='component'){
+    if(!getVal('m_comp') || !getVal('m_title') || !getVal('m_grade')){ liveToast('Pick a component, display title, and minimum grade'); return; }
+    it = {type:'component', component:getVal('m_comp'), title:getVal('m_title'), notes:getVal('m_notes'), grade:getVal('m_grade'), pick:getVal('m_pick'), exclude:getVal('m_exclude')};
+  } else {
+    if(!getVal('s_inst') || !getVal('s_subject') || !getVal('s_grade') || !getVal('s_level')){ liveToast('Fill institution, subject, grade, and course level'); return; }
+    it = {type:'subject', institution:getVal('s_inst'), subject:getVal('s_subject'), title:getVal('s_title')||getVal('s_subject'), notes:getVal('s_notes'), grade:getVal('s_grade'), level:getVal('s_level'), pick:getVal('s_pick')};
+  }
+  if(editIndex==null) items.push(it);
+  else { it.selected = items[editIndex].selected; items[editIndex] = it; }
+  render();
+  closeTray(TRAY_ID[type]);
+  liveToast(editIndex==null ? TYPE_LABEL[type]+' added' : TYPE_LABEL[type]+' updated');
+  editIndex = null;
+}
+
+function removeItem(i){
+  confirmModal({
+    header:'Remove item', title:'Remove this from the requirement?',
+    body:'It will no longer count toward fulfilling this requirement.',
+    confirmLabel:'Remove',
+    onConfirm:()=>{ items.splice(i,1); render(); liveToast('Item removed'); }
+  });
+}
+
+// same-page toast (flashToast is for cross-page transitions)
+function liveToast(msg){
+  const t=document.createElement('div'); t.className='toast'; t.textContent=msg;
+  document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('show'));
+  setTimeout(()=>{ t.classList.remove('show'); setTimeout(()=>t.remove(),300); }, 2200);
+}
+
 document.querySelectorAll('.tray-overlay').forEach(ov=>ov.addEventListener('click',e=>{ if(e.target===ov) ov.classList.remove('show'); }));
 function save(){ flashToast('Requirement details saved'); go('program-detail.html'); }
+
+render();
+// optional deep-link for demos: ?tray=course|component|subject
+const qp = new URLSearchParams(location.search).get('tray');
+if(qp && TRAY_ID[qp]) openTray(qp);
 </script>
 </body>
 </html>

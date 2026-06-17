@@ -601,6 +601,10 @@ main { flex: 1; }
 .rq-act { color: var(--c-link); font-weight: 600; font-size: 13px; display: inline-flex; align-items: center; gap: 5px; margin-left: 18px; }
 .rq-act svg { width: 14px; height: 14px; }
 .tag-hio { display: inline-flex; align-items: center; border: 1px solid var(--yellow-600); color: var(--yellow-600); border-radius: 999px; padding: 2px 10px; font-size: 11px; font-weight: 600; margin-left: 8px; white-space: nowrap; }
+/* small home-institution badge shown beside a requirement item's type label */
+.req-item .tag-hio.sm { margin-left: 10px; padding: 1px 8px; font-size: 10px; position: relative; top: -1px; }
+/* precedence note under the per-course Home Institution Only toggle */
+.tray-note { font-size: 11px; color: var(--msg-hint, #576773); margin: 6px 0 0 32px; line-height: 1.5; }
 .req-actions { display: flex; gap: 12px; margin-top: 16px; }
 
 /* read-only numbered priority order (program/collab detail) — filled blue circles */
