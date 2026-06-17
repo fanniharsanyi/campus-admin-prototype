@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Define Requirement Details</title>
-<link rel="stylesheet" href="assets/styles.css?v=10">
+<link rel="stylesheet" href="assets/styles.css?v=11">
 </head>
 <body>
 <div class="app" id="app">
@@ -98,7 +98,7 @@
   </div>
 </div>
 
-<script src="assets/app.js?v=10"></script>
+<script src="assets/app.js?v=11"></script>
 <script>
 mountChrome([{label:'Admin', href:'dashboard.html'}, {label:'Regional Collaboratives', href:'collaboratives.html'}, {label:'Registered Nursing (RN)', href:'program-detail.html'}, {label:'Define Requirement Details'}]);
 
@@ -192,8 +192,20 @@ document.querySelectorAll('.tray-overlay').forEach(ov=>ov.addEventListener('clic
 function save(){ flashToast('Your courses were saved'); go('program-detail.html'); }
 
 render();
+
+// Gap 1: editing is only possible while the collaborative is in DRAFT.
+// ?state=published shows the locked view (no adding/removing course options).
+const published = new URLSearchParams(location.search).get('state') === 'published';
+if (published) {
+  document.querySelector('.lead').textContent = 'This collaborative is published — course options are locked.';
+  const foot = document.querySelector('.struct-foot'); if (foot) foot.style.display = 'none';
+  document.querySelectorAll('#structure .add-link, #structure .comp-course .x, #structure .req-acts').forEach(e => e.style.display = 'none');
+  const note = document.querySelector('.notice.notice-info');
+  if (note) note.innerHTML = '<span class="nicon">i</span><span><b>Published and locked.</b> This collaborative is live, so course options can no longer be changed. Editing is only available while the collaborative is in draft.</span>';
+}
+
 const qp = new URLSearchParams(location.search).get('tray');
-if(qp==='course') openCourse('direct'); else if(qp==='subject') openSubject('direct');
+if(!published){ if(qp==='course') openCourse('direct'); else if(qp==='subject') openSubject('direct'); }
 </script>
 </body>
 </html>
