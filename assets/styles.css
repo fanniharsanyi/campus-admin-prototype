@@ -650,3 +650,7 @@ main { flex: 1; }
 .comp-add { margin-top:12px; }
 .struct-foot { display:flex; gap:18px; align-items:center; margin-top:6px; }
 .struct-foot .note { font-size:11px; color:var(--gray-600); margin-left:auto; }
+
+/* requirement group — left border + title groups the option cards under one requirement */
+.req-group-block { border-left: 3px solid var(--c-link); padding-left: 18px; margin-top: 16px; }
+.req-group-title { font-weight: 700; font-size: 14px; color: var(--c-content-text-highlight); margin: 0 0 12px; }

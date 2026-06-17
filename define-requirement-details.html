@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Define Requirement Details</title>
-<link rel="stylesheet" href="assets/styles.css?v=11">
+<link rel="stylesheet" href="assets/styles.css?v=12">
 </head>
 <body>
 <div class="app" id="app">
@@ -32,7 +32,9 @@
           <span><b>Information:</b> The program administrator set this requirement's structure — the components and how options combine. Add the courses and subjects from your institution that fulfill it.</span>
         </div>
 
-        <div class="rule-chip" style="margin-top:14px;">
+        <div class="req-group-block" style="margin-top:14px;">
+        <p class="req-group-title">English Composition</p>
+        <div class="rule-chip">
           Students must complete <b id="ruleText">all of the following</b>
           <span class="lock"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> set by the program administrator</span>
         </div>
@@ -43,6 +45,7 @@
           <button class="add-link" onclick="openCourse('direct')"><span class="circ">+</span> Add Course</button>
           <button class="add-link" onclick="openSubject('direct')"><span class="circ">+</span> Add Subject</button>
           <span class="note">Components are defined by the program administrator.</span>
+        </div>
         </div>
       </div>
 
@@ -98,7 +101,7 @@
   </div>
 </div>
 
-<script src="assets/app.js?v=11"></script>
+<script src="assets/app.js?v=12"></script>
 <script>
 mountChrome([{label:'Admin', href:'dashboard.html'}, {label:'Regional Collaboratives', href:'collaboratives.html'}, {label:'Registered Nursing (RN)', href:'program-detail.html'}, {label:'Define Requirement Details'}]);
 
