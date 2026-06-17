@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Define Requirement Details</title>
-<link rel="stylesheet" href="assets/styles.css?v=8">
+<link rel="stylesheet" href="assets/styles.css?v=9">
 </head>
 <body>
 <div class="app" id="app">
@@ -120,7 +120,7 @@
   </div>
 </div>
 
-<script src="assets/app.js?v=8"></script>
+<script src="assets/app.js?v=9"></script>
 <script>
 mountChrome([{label:'Admin', href:'dashboard.html'}, {label:'Regional Collaboratives', href:'collaboratives.html'}, {label:'Registered Nursing (RN)', href:'program-detail.html'}, {label:'Define Requirement Details'}]);
 
@@ -133,7 +133,7 @@ const TRASH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
 
 // Seed data — the courses/subjects/components this institution already added.
 let items = [
-  {type:'course', selected:true, institution:'UCLA', course:'ENGL 101 — College Composition', title:'English Composition', notes:'', grade:'C', home:true},
+  {type:'course', institution:'UCLA', course:'ENGL 101 — College Composition', title:'English Composition', notes:'', grade:'C', home:true},
   {type:'component', component:'Required Core', title:'Required Core', notes:'', grade:'C', pick:'1', exclude:'None'},
   {type:'subject', institution:'USC', subject:'MATH', title:'Mathematics', notes:'', grade:'C', level:'100', pick:'2'},
 ];
@@ -158,15 +158,15 @@ function isHome(it){ return reqHomeOnly || !!it.home; }
 function render(){
   const list = document.getElementById('reqList');
   list.innerHTML = items.map((it,i)=>`
-    <div class="req-item t-${it.type}${it.selected?' selected':''}">
+    <div class="req-item t-${it.type}" role="button" tabindex="0" onclick="openTray('${it.type}',${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTray('${it.type}',${i});}">
       <div class="grow">
-        <span class="req-tag${it.selected?' selected':''}">${TYPE_LABEL[it.type]}</span>${isHome(it)?'<span class="tag-hio sm">Home institution only</span>':''}
+        <span class="req-tag">${TYPE_LABEL[it.type]}</span>${isHome(it)?'<span class="tag-hio sm">Home institution only</span>':''}
         <div class="req-name">${nameOf(it)}</div>
         <div class="req-meta">${metaOf(it)}</div>
       </div>
       <div class="req-acts">
-        <button class="row-menu" onclick="openTray('${it.type}',${i})" aria-label="Edit">${PENCIL}</button>
-        <button class="row-menu" onclick="removeItem(${i})" aria-label="Remove">${TRASH}</button>
+        <button class="row-menu" onclick="event.stopPropagation();openTray('${it.type}',${i})" aria-label="Edit">${PENCIL}</button>
+        <button class="row-menu" onclick="event.stopPropagation();removeItem(${i})" aria-label="Remove">${TRASH}</button>
       </div>
     </div>`).join('');
   document.getElementById('reqHioTag').style.display = reqHomeOnly ? '' : 'none';
@@ -212,7 +212,7 @@ function saveTray(type){
     it = {type:'subject', institution:getVal('s_inst'), subject:getVal('s_subject'), title:getVal('s_title')||getVal('s_subject'), notes:getVal('s_notes'), grade:getVal('s_grade'), level:getVal('s_level'), pick:getVal('s_pick')};
   }
   if(editIndex==null) items.push(it);
-  else { it.selected = items[editIndex].selected; items[editIndex] = it; }
+  else items[editIndex] = it;
   render();
   closeTray(TRAY_ID[type]);
   liveToast(editIndex==null ? TYPE_LABEL[type]+' added' : TYPE_LABEL[type]+' updated');
