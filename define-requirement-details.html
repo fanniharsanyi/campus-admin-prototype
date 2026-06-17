@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Define Requirement Details</title>
-<link rel="stylesheet" href="assets/styles.css?v=6">
+<link rel="stylesheet" href="assets/styles.css?v=7">
 </head>
 <body>
 <div class="app" id="app">
@@ -16,12 +16,13 @@
 
       <div class="card">
         <h2 class="card-title">Requirement details</h2>
-        <p class="card-sub" style="margin-top:4px;">This requirement was set by the program administrator. Add the courses or subjects from your institution that fulfill it.</p>
+        <p class="card-sub" style="margin-top:4px;">This requirement was set by the program administrator and can't be edited here. Add the courses or subjects from your institution that fulfill it.</p>
         <div style="display:grid; grid-template-columns:2fr 1fr; gap:18px;">
           <div class="field" style="margin:0;"><label><span class="star">*</span> Name <span class="muted">(Required)</span></label><input class="input" value="English Composition" disabled></div>
           <div class="field" style="margin:0;"><label><span class="star">*</span> Credit <span class="muted">(Required)</span></label><input class="input" value="3" disabled></div>
         </div>
-        <span class="tag-hio" style="margin-top:8px;">Home institution only</span>
+        <div class="field" style="margin:14px 0 0;"><label><span class="star">*</span> Default Subheading Text <span class="muted">(Required)</span></label><input class="input" value="Complete one approved English composition course." disabled></div>
+        <span class="tag-hio" style="margin-top:14px;">Home institution only</span>
       </div>
 
       <div class="card">
@@ -33,9 +34,9 @@
         </div>
 
         <div id="reqList" style="margin-top:14px;">
-          <div class="req-item t-course">
+          <div class="req-item t-course selected">
             <div class="grow">
-              <span class="req-tag">Course</span>
+              <span class="req-tag selected">Course</span>
               <div class="req-name">ENGL 101 — College Composition</div>
               <div class="req-meta">UCLA <span class="sep">|</span> Min Grade: C <span class="sep">|</span> English Composition</div>
             </div>
@@ -97,7 +98,7 @@
       <label class="ccs-check" style="margin-top:4px;">
         <input type="checkbox">
         <span class="box"><svg viewBox="0 0 12 12" fill="none"><path d="M1 6l3.5 3.5L11 2.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span class="lbl">Home Institution Only<span class="sub">This entire requirement section must be completed at the student's home institution.</span></span>
+        <span class="lbl">Home Institution Only<span class="sub">Students must complete this specific course at their home institution.</span></span>
       </label>
     </div>
     <div class="tray-foot">
@@ -151,7 +152,7 @@
   </div>
 </div>
 
-<script src="assets/app.js?v=6"></script>
+<script src="assets/app.js?v=7"></script>
 <script>
 mountChrome([{label:'Admin', href:'dashboard.html'}, {label:'Regional Collaboratives', href:'collaboratives.html'}, {label:'Registered Nursing (RN)', href:'program-detail.html'}, {label:'Define Requirement Details'}]);
 function openTray(id){ document.getElementById(id).classList.add('show'); }

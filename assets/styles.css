@@ -448,18 +448,18 @@ main { flex: 1; }
 .ccs-check { display: inline-flex; align-items: flex-start; gap: 10px; cursor: pointer; font-weight: 500; }
 .ccs-check input { position: absolute; opacity: 0; width: 0; height: 0; }
 .ccs-check .box {
-  flex: none; width: 20px; height: 20px; border-radius: 5px;
-  border: 1px solid var(--gray-700); background: var(--c-form-input-bg);
+  flex: none; width: 20px; height: 20px; border-radius: 4.5px;
+  border: 1px solid #999; background: var(--c-form-input-bg);
   display: inline-flex; align-items: center; justify-content: center;
   margin-top: 1px; transition: background .1s, border-color .1s;
 }
-.ccs-check .box svg { width: 12px; height: 12px; opacity: 0; }
-.ccs-check input:checked + .box { background: var(--c-form-highlight); border-color: var(--c-form-highlight); }
+.ccs-check .box svg { width: 13px; height: 13px; opacity: 0; }
+.ccs-check input:checked + .box { background: var(--c-form-highlight); border-color: #999; }
 .ccs-check input:checked + .box svg { opacity: 1; }
 .ccs-check input:focus-visible + .box { outline: var(--focus-ring); outline-offset: 2px; }
 .ccs-check.sm .box { width: 16px; height: 16px; }
-.ccs-check .lbl { line-height: 1.4; }
-.ccs-check .lbl .sub { display: block; font-weight: 400; font-size: 11px; color: var(--gray-700); }
+.ccs-check .lbl { font-size: 14px; line-height: 1.5; }
+.ccs-check .lbl .sub { display: block; font-weight: 400; font-size: 12px; line-height: 1.5; color: #576773; }
 
 /* ============================================================
    Modal / confirmation dialog (publish)
