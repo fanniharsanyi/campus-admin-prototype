@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Define Requirement Details</title>
-<link rel="stylesheet" href="assets/styles.css?v=12">
+<link rel="stylesheet" href="assets/styles.css?v=13">
 </head>
 <body>
 <div class="app" id="app">
@@ -101,7 +101,7 @@
   </div>
 </div>
 
-<script src="assets/app.js?v=12"></script>
+<script src="assets/app.js?v=13"></script>
 <script>
 mountChrome([{label:'Admin', href:'dashboard.html'}, {label:'Regional Collaboratives', href:'collaboratives.html'}, {label:'Registered Nursing (RN)', href:'program-detail.html'}, {label:'Define Requirement Details'}]);
 
@@ -115,6 +115,8 @@ const reqHomeOnly = false;
 let slots = [
   { kind:'component', name:'Required Core', rule:'Pick 1 course · Min Grade C',
     courses:[ {course:'ENGL 101 — College Composition', inst:'UCLA', grade:'C', home:false} ] },
+  { kind:'component', name:'Writing Workshop', rule:'Pick 1 course · Min Grade C',
+    courses:[ {course:'ENGL 105 — Critical Reading & Writing', inst:'USC', grade:'C', home:false} ] },
 ];
 let target = null; // 'direct' or a component slot index
 
@@ -153,7 +155,7 @@ function render(){
       </div>
       <div class="req-acts"><button class="row-menu" aria-label="Remove" onclick="removeSlot(${i})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div>
     </div>`;
-  }).join('');
+  }).join(`<div class="conn-row"><span class="or-chip">${combine==='all'?'AND':'OR'}</span><span class="conn-set">set by the program administrator</span></div>`);
 }
 
 function setV(id,v){ const e=document.getElementById(id); if(e) e.value=v==null?'':v; }

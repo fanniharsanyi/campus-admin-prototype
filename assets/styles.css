@@ -654,3 +654,8 @@ main { flex: 1; }
 /* requirement group — left border + title groups the option cards under one requirement */
 .req-group-block { border-left: 3px solid var(--c-link); padding-left: 18px; margin-top: 16px; }
 .req-group-title { font-weight: 700; font-size: 14px; color: var(--c-content-text-highlight); margin: 0 0 12px; }
+
+/* read-only AND/OR connector between requirement options (campus admin view) */
+.conn-row { display:flex; align-items:center; gap:10px; margin:0 0 10px; }
+.or-chip { display:inline-flex; align-items:center; justify-content:center; border:1px solid var(--c-link); color:var(--c-link); border-radius:6px; padding:4px 12px; font-size:12px; font-weight:700; }
+.conn-set { font-size:11px; color:var(--gray-600); }
