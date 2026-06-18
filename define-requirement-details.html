@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Define Requirement Details</title>
-<link rel="stylesheet" href="assets/styles.css?v=13">
+<link rel="stylesheet" href="assets/styles.css?v=14">
 </head>
 <body>
 <div class="app" id="app">
@@ -32,21 +32,7 @@
           <span><b>Information:</b> The program administrator set this requirement's structure — the components and how options combine. Add the courses and subjects from your institution that fulfill it.</span>
         </div>
 
-        <div class="req-group-block" style="margin-top:14px;">
-        <p class="req-group-title">English Composition</p>
-        <div class="rule-chip">
-          Students must complete <b id="ruleText">all of the following</b>
-          <span class="lock"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> set by the program administrator</span>
-        </div>
-
-        <div id="structure"></div>
-
-        <div class="struct-foot">
-          <button class="add-link" onclick="openCourse('direct')"><span class="circ">+</span> Add Course</button>
-          <button class="add-link" onclick="openSubject('direct')"><span class="circ">+</span> Add Subject</button>
-          <span class="note">Components are defined by the program administrator.</span>
-        </div>
-        </div>
+        <div id="requirements" style="margin-top:14px;"></div>
       </div>
 
       <div class="card-actions">
@@ -101,116 +87,133 @@
   </div>
 </div>
 
-<script src="assets/app.js?v=13"></script>
+<script src="assets/app.js?v=14"></script>
 <script>
 mountChrome([{label:'Admin', href:'dashboard.html'}, {label:'Regional Collaboratives', href:'collaboratives.html'}, {label:'Registered Nursing (RN)', href:'program-detail.html'}, {label:'Define Requirement Details'}]);
 
-// ---- Structure is defined by the SUPER ADMIN (read-only here) ----
-// combine: 'all' (AND) or 'any' (OR) — set by the super admin.
-const combine = 'all';
-const reqHomeOnly = false;
-
-// Components are super-admin buckets the campus admin fills with courses.
-// Campus-admin-added direct courses/subjects also live in this list.
-let slots = [
-  { kind:'component', name:'Required Core', rule:'Pick 1 course · Min Grade C',
-    courses:[ {course:'ENGL 101 — College Composition', inst:'UCLA', grade:'C', home:false} ] },
-  { kind:'component', name:'Writing Workshop', rule:'Pick 1 course · Min Grade C',
-    courses:[ {course:'ENGL 105 — Critical Reading & Writing', inst:'USC', grade:'C', home:false} ] },
+// ---- Requirement structure is set by the SUPER ADMIN (read-only here) ----
+// Each requirement has its own combine ('all'=AND, 'any'=OR) and components.
+// Two examples below so AND and OR are both visible.
+let requirements = [
+  { title:'English Composition', combine:'all', slots:[
+    { kind:'component', name:'Required Core', rule:'Pick 1 course · Min Grade C', courses:[ {course:'ENGL 101 — College Composition', inst:'UCLA', grade:'C', home:false} ] },
+    { kind:'component', name:'Writing Workshop', rule:'Pick 1 course · Min Grade C', courses:[ {course:'ENGL 105 — Critical Reading & Writing', inst:'USC', grade:'C', home:false} ] },
+  ]},
+  { title:'General Education: Mathematics', combine:'any', slots:[
+    { kind:'component', name:'College Algebra path', rule:'Pick 1 course · Min Grade C', courses:[ {course:'MATH 110 — College Algebra', inst:'UCLA', grade:'C', home:false} ] },
+    { kind:'component', name:'Statistics path', rule:'Pick 1 course · Min Grade C', courses:[ {course:'STAT 120 — Intro to Statistics', inst:'USC', grade:'C', home:false} ] },
+  ]},
 ];
-let target = null; // 'direct' or a component slot index
+let target = null; // { ri, ci } — ci is a component index or 'direct'
 
-document.getElementById('ruleText').textContent = combine==='all' ? 'all of the following' : 'any one of the following';
+const LOCK = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
+const TRASH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
 
 function courseLine(c, onRemove){
   return `<div class="comp-course"><span class="grow"><b>${c.course}</b>${c.home?' <span class="tag-hio sm">Home institution only</span>':''}<div class="meta">${c.inst} · Min Grade ${c.grade}</div></span><button class="x" title="Remove" onclick="${onRemove}">&times;</button></div>`;
 }
 
-function render(){
-  const root = document.getElementById('structure');
-  root.innerHTML = slots.map((s,i)=>{
-    if(s.kind==='component'){
-      const courses = s.courses.length
-        ? s.courses.map((c,ci)=>courseLine(c, `removeCompCourse(${i},${ci})`)).join('')
-        : '<div class="comp-empty">No courses from your institution yet. Add the ones that fulfill this component.</div>';
-      return `<div class="comp-bucket">
-        <div class="comp-bucket__top">
-          <div><div class="comp-bucket__name">${s.name} <span class="req-tag" style="margin-left:6px;">Component</span></div><div class="comp-bucket__rule">${s.rule}</div></div>
-          <span class="comp-bucket__lock"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> Set by program admin</span>
-        </div>
-        <div class="comp-courses">${courses}</div>
-        <div class="comp-add"><button class="add-link" onclick="openCourse(${i})"><span class="circ">+</span> Add Course</button></div>
-      </div>`;
-    }
-    // campus-admin-added direct course / subject
-    const meta = s.kind==='course'
-      ? `${s.inst} <span class="sep">|</span> Min Grade: ${s.grade}${s.title?' <span class="sep">|</span> '+s.title:''}`
-      : `${s.inst} <span class="sep">|</span> Min Grade: ${s.grade} <span class="sep">|</span> Pick ${s.pick} (${s.level}+)`;
-    const name = s.kind==='course' ? s.course : (s.title || s.subject+' (Subject)');
-    return `<div class="req-item t-${s.kind}">
-      <div class="grow">
-        <span class="req-tag">${s.kind==='course'?'Course':'Subject'}</span>${(reqHomeOnly||s.home)?'<span class="tag-hio sm">Home institution only</span>':''}
-        <div class="req-name">${name}</div>
-        <div class="req-meta">${meta}</div>
+function slotHtml(s, ri, ci){
+  if(s.kind==='component'){
+    const courses = s.courses.length
+      ? s.courses.map((c,idx)=>courseLine(c, `removeCompCourse(${ri},${ci},${idx})`)).join('')
+      : '<div class="comp-empty">No courses from your institution yet. Add the ones that fulfill this component.</div>';
+    return `<div class="comp-bucket">
+      <div class="comp-bucket__top">
+        <div><div class="comp-bucket__name">${s.name} <span class="req-tag" style="margin-left:6px;">Component</span></div><div class="comp-bucket__rule">${s.rule}</div></div>
+        <span class="comp-bucket__lock">${LOCK} Set by program admin</span>
       </div>
-      <div class="req-acts"><button class="row-menu" aria-label="Remove" onclick="removeSlot(${i})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div>
+      <div class="comp-courses">${courses}</div>
+      <div class="comp-add"><button class="add-link" onclick="openCourse(${ri},${ci})"><span class="circ">+</span> Add Course</button></div>
     </div>`;
-  }).join(`<div class="conn-row"><span class="or-chip">${combine==='all'?'AND':'OR'}</span><span class="conn-set">set by the program administrator</span></div>`);
+  }
+  const meta = s.kind==='course'
+    ? `${s.inst} <span class="sep">|</span> Min Grade: ${s.grade}${s.title?' <span class="sep">|</span> '+s.title:''}`
+    : `${s.inst} <span class="sep">|</span> Min Grade: ${s.grade} <span class="sep">|</span> Pick ${s.pick} (${s.level}+)`;
+  const name = s.kind==='course' ? s.course : (s.title || s.subject+' (Subject)');
+  return `<div class="req-item t-${s.kind}">
+    <div class="grow">
+      <span class="req-tag">${s.kind==='course'?'Course':'Subject'}</span>${s.home?'<span class="tag-hio sm">Home institution only</span>':''}
+      <div class="req-name">${name}</div>
+      <div class="req-meta">${meta}</div>
+    </div>
+    <div class="req-acts"><button class="row-menu" aria-label="Remove" onclick="removeSlot(${ri},${ci})">${TRASH}</button></div>
+  </div>`;
+}
+
+function reqBlock(r, ri){
+  const label = r.combine==='all' ? 'AND' : 'OR';
+  const ruleText = r.combine==='all' ? 'all of the following' : 'one of the following';
+  const conn = `<div class="conn-row"><span class="or-chip">${label}</span><span class="conn-set">set by the program administrator</span></div>`;
+  const body = r.slots.map((s,ci)=>slotHtml(s, ri, ci)).join(conn);
+  return `<div class="req-group-block" style="margin-bottom:24px;">
+    <p class="req-group-title">${r.title}</p>
+    <div class="rule-chip">Students must complete <b>${ruleText}</b> <span class="lock">${LOCK} set by the program administrator</span></div>
+    ${body}
+    <div class="struct-foot">
+      <button class="add-link" onclick="openCourse(${ri},'direct')"><span class="circ">+</span> Add Course</button>
+      <button class="add-link" onclick="openSubject(${ri})"><span class="circ">+</span> Add Subject</button>
+      <span class="note">Components and how they combine are set by the program administrator.</span>
+    </div>
+  </div>`;
+}
+
+function render(){
+  document.getElementById('requirements').innerHTML = requirements.map((r,ri)=>reqBlock(r, ri)).join('');
+  if (window.__published) applyLock();
 }
 
 function setV(id,v){ const e=document.getElementById(id); if(e) e.value=v==null?'':v; }
 function getV(id){ const e=document.getElementById(id); return e?e.value.trim():''; }
 
-function openCourse(t){
-  target = t;
+function openCourse(ri, ci){
+  target = { ri, ci };
   ['c_inst','c_course','c_title','c_grade'].forEach(id=>setV(id,''));
-  document.getElementById('c_home').checked = reqHomeOnly;
-  document.getElementById('c_home').disabled = reqHomeOnly;
+  document.getElementById('c_home').checked = false;
   document.getElementById('courseInto').textContent =
-    (t==='direct') ? 'Add a course from your institution that fulfills this requirement.'
-                   : 'Add a course from your institution into the "'+slots[t].name+'" component.';
+    (ci==='direct') ? 'Add a course from your institution that fulfills this requirement.'
+                    : 'Add a course from your institution into the "'+requirements[ri].slots[ci].name+'" component.';
   document.getElementById('trayCourse').classList.add('show');
 }
-function openSubject(t){ target=t; ['s_inst','s_subject','s_title','s_grade','s_level'].forEach(id=>setV(id,'')); setV('s_pick','1'); document.getElementById('traySubject').classList.add('show'); }
+function openSubject(ri){ target={ ri, ci:'direct' }; ['s_inst','s_subject','s_title','s_grade','s_level'].forEach(id=>setV(id,'')); setV('s_pick','1'); document.getElementById('traySubject').classList.add('show'); }
 function closeTray(id){ document.getElementById(id).classList.remove('show'); }
 
 function saveCourse(){
   if(!getV('c_inst')||!getV('c_course')||!getV('c_grade')){ liveToast('Pick an institution, course, and minimum grade'); return; }
   const c = {course:getV('c_course'), inst:getV('c_inst'), title:getV('c_title'), grade:getV('c_grade'), home:document.getElementById('c_home').checked};
-  if(target==='direct') slots.push({kind:'course', ...c});
-  else slots[target].courses.push(c);
+  const r = requirements[target.ri];
+  if(target.ci==='direct') r.slots.push({kind:'course', ...c}); else r.slots[target.ci].courses.push(c);
   render(); closeTray('trayCourse'); liveToast('Course added');
 }
 function saveSubject(){
   if(!getV('s_inst')||!getV('s_subject')||!getV('s_grade')||!getV('s_level')){ liveToast('Fill institution, subject, grade, and level'); return; }
-  slots.push({kind:'subject', inst:getV('s_inst'), subject:getV('s_subject'), title:getV('s_title')||getV('s_subject'), grade:getV('s_grade'), level:getV('s_level'), pick:getV('s_pick')});
+  requirements[target.ri].slots.push({kind:'subject', inst:getV('s_inst'), subject:getV('s_subject'), title:getV('s_title')||getV('s_subject'), grade:getV('s_grade'), level:getV('s_level'), pick:getV('s_pick')});
   render(); closeTray('traySubject'); liveToast('Subject added');
 }
-function removeCompCourse(i,ci){ slots[i].courses.splice(ci,1); render(); }
-function removeSlot(i){
+function removeCompCourse(ri,ci,idx){ requirements[ri].slots[ci].courses.splice(idx,1); render(); }
+function removeSlot(ri,ci){
   confirmModal({ header:'Remove', title:'Remove this from the requirement?', body:'It will no longer count toward fulfilling this requirement.', confirmLabel:'Remove',
-    onConfirm:()=>{ slots.splice(i,1); render(); liveToast('Removed'); }});
+    onConfirm:()=>{ requirements[ri].slots.splice(ci,1); render(); liveToast('Removed'); }});
 }
 
 function liveToast(msg){ const t=document.createElement('div'); t.className='toast'; t.textContent=msg; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add('show')); setTimeout(()=>{ t.classList.remove('show'); setTimeout(()=>t.remove(),300); },2200); }
 document.querySelectorAll('.tray-overlay').forEach(ov=>ov.addEventListener('click',e=>{ if(e.target===ov) ov.classList.remove('show'); }));
 function save(){ flashToast('Your courses were saved'); go('program-detail.html'); }
 
-render();
-
-// Gap 1: editing is only possible while the collaborative is in DRAFT.
-// ?state=published shows the locked view (no adding/removing course options).
-const published = new URLSearchParams(location.search).get('state') === 'published';
-if (published) {
+// Gap 1: editing only in DRAFT. ?state=published shows the locked, read-only view.
+window.__published = new URLSearchParams(location.search).get('state') === 'published';
+function applyLock(){
+  document.querySelectorAll('.struct-foot, #requirements .add-link, #requirements .comp-course .x, #requirements .req-acts').forEach(e => e.style.display = 'none');
+}
+if (window.__published) {
   document.querySelector('.lead').textContent = 'This collaborative is published — course options are locked.';
-  const foot = document.querySelector('.struct-foot'); if (foot) foot.style.display = 'none';
-  document.querySelectorAll('#structure .add-link, #structure .comp-course .x, #structure .req-acts').forEach(e => e.style.display = 'none');
   const note = document.querySelector('.notice.notice-info');
   if (note) note.innerHTML = '<span class="nicon">i</span><span><b>Published and locked.</b> This collaborative is live, so course options can no longer be changed. Editing is only available while the collaborative is in draft.</span>';
 }
 
+render();
 const qp = new URLSearchParams(location.search).get('tray');
-if(!published){ if(qp==='course') openCourse('direct'); else if(qp==='subject') openSubject('direct'); }
+if(!window.__published){ if(qp==='course') openCourse(0,'direct'); else if(qp==='subject') openSubject(0); }
 </script>
 </body>
 </html>
