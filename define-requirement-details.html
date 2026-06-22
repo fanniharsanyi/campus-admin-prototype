@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Define Requirement Details</title>
-<link rel="stylesheet" href="assets/styles.css?v=14">
+<link rel="stylesheet" href="assets/styles.css?v=15">
 </head>
 <body>
 <div class="app" id="app">
@@ -87,7 +87,7 @@
   </div>
 </div>
 
-<script src="assets/app.js?v=14"></script>
+<script src="assets/app.js?v=15"></script>
 <script>
 mountChrome([{label:'Admin', href:'dashboard.html'}, {label:'Regional Collaboratives', href:'collaboratives.html'}, {label:'Registered Nursing (RN)', href:'program-detail.html'}, {label:'Define Requirement Details'}]);
 
@@ -144,17 +144,13 @@ function slotHtml(s, ri, ci){
 function reqBlock(r, ri){
   const label = r.combine==='all' ? 'AND' : 'OR';
   const ruleText = r.combine==='all' ? 'all of the following' : 'one of the following';
-  const conn = `<div class="conn-row"><span class="or-chip">${label}</span><span class="conn-set">set by the program administrator</span></div>`;
+  const chipClass = r.combine==='all' ? 'conn-chip conn-chip--and' : 'conn-chip conn-chip--or';
+  const conn = `<div class="conn-row"><span class="${chipClass}">${label}</span><span class="conn-set">set by the program administrator</span></div>`;
   const body = r.slots.map((s,ci)=>slotHtml(s, ri, ci)).join(conn);
   return `<div class="req-group-block" style="margin-bottom:24px;">
     <p class="req-group-title">${r.title}</p>
     <div class="rule-chip">Students must complete <b>${ruleText}</b> <span class="lock">${LOCK} set by the program administrator</span></div>
     ${body}
-    <div class="struct-foot">
-      <button class="add-link" onclick="openCourse(${ri},'direct')"><span class="circ">+</span> Add Course</button>
-      <button class="add-link" onclick="openSubject(${ri})"><span class="circ">+</span> Add Subject</button>
-      <span class="note">Components and how they combine are set by the program administrator.</span>
-    </div>
   </div>`;
 }
 

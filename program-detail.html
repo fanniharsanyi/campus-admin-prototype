@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Registered Nursing (RN)</title>
-<link rel="stylesheet" href="assets/styles.css?v=14">
+<link rel="stylesheet" href="assets/styles.css?v=15">
 </head>
 <body>
 <div class="app" id="app">
@@ -16,18 +16,17 @@
         <div class="detail-title-row">
           <h1 class="h1">Registered Nursing (RN)</h1>
           <div class="detail-actions">
-            <button class="icon-btn" aria-label="Program information" title="Program information">&#105;</button>
             <button class="btn btn-outline btn-md">Preview</button>
-            <button class="btn btn-primary btn-md" onclick="tryPublish()">Publish</button>
           </div>
         </div>
       </div>
 
-      <div class="notice notice-info" role="status">
-        <span class="nicon">i</span>
-        <span>Requirements are set by the program administrator. Add the courses and subjects from your institution that fulfill each one.</span>
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" aria-selected="true" data-tab="details">Details</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="requirements">Requirements</button>
       </div>
 
+      <div data-panel="details">
       <div class="card">
         <h2 class="card-title">Program Details</h2>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px 40px; font-size:13px; margin-top:16px;">
@@ -107,14 +106,22 @@
         </div>
       </div>
 
+      </div><!-- /details panel -->
+
+      <div data-panel="requirements" style="display:none;">
+      <div class="notice notice-info" role="status">
+        <span class="nicon">i</span>
+        <span>Requirements are set by the program administrator. Add the courses and subjects from your institution that fulfill each one.</span>
+      </div>
       <div class="card" id="requirements">
         <h2 class="card-title">Program Requirements</h2>
         <div id="reqBody"></div>
       </div>
+      </div><!-- /requirements panel -->
     </div>
   </main>
 </div>
-<script src="assets/app.js?v=14"></script>
+<script src="assets/app.js?v=15"></script>
 <script>
 mountChrome([{label:'Admin', href:'dashboard.html'}, {label:'Regional Collaboratives', href:'collaboratives.html'}, {label:'Registered Nursing (RN)'}]);
 
@@ -143,15 +150,18 @@ reqBody.innerHTML = `
     </tbody>
   </table>`;
 
-function tryPublish() {
-  confirmModal({
-    header: 'Publish program',
-    title: 'Are you ready to publish this program?',
-    body: 'After publishing, students will be able to view it, and no further edits can be made.',
-    confirmLabel: 'Publish',
-    onConfirm: () => { flashToast('Program published'); go('collaboratives.html'); }
+// Details / Requirements tabs
+document.querySelectorAll('.tabs .tab').forEach(function (tab) {
+  tab.addEventListener('click', function () {
+    document.querySelectorAll('.tabs .tab').forEach(function (b) {
+      b.setAttribute('aria-selected', b === tab ? 'true' : 'false');
+    });
+    var name = tab.dataset.tab;
+    document.querySelectorAll('[data-panel]').forEach(function (p) {
+      p.style.display = p.dataset.panel === name ? '' : 'none';
+    });
   });
-}
+});
 </script>
 </body>
 </html>

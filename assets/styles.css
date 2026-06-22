@@ -347,7 +347,6 @@ main { flex: 1; }
 }
 .badge-published { color: var(--green-700); border-color: var(--green-600); background: #fff; }
 .badge-draft { color: var(--yellow-600); border-color: var(--yellow-600); background: #fff; }
-.badge-archived { color: var(--gray-700); border-color: var(--gray-500); background: #fff; }
 
 /* ============================================================
    Notices  (inline alert / status notice)
@@ -657,5 +656,8 @@ main { flex: 1; }
 
 /* read-only AND/OR connector between requirement options (campus admin view) */
 .conn-row { display:flex; align-items:center; gap:10px; margin:0 0 10px; }
-.or-chip { display:inline-flex; align-items:center; justify-content:center; border:1px solid var(--c-link); color:var(--c-link); border-radius:6px; padding:4px 12px; font-size:12px; font-weight:700; }
+.conn-chip { display:inline-flex; align-items:center; justify-content:center; border:1px solid currentColor; border-radius:6px; padding:4px 12px; font-size:12px; font-weight:700; }
+/* AND stays in the brand blue; OR uses amber so the two read as distinct at a glance */
+.conn-chip--and { color:var(--c-link); background:#fff; }
+.conn-chip--or  { color:var(--yellow-600); background:#FFFBF0; border-color:var(--yellow-600); }
 .conn-set { font-size:11px; color:var(--gray-600); }

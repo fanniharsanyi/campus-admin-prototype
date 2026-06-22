@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Regional Collaboratives</title>
-<link rel="stylesheet" href="assets/styles.css?v=14">
+<link rel="stylesheet" href="assets/styles.css?v=15">
 </head>
 <body>
 <div class="app" id="app">
@@ -28,7 +28,7 @@
           </div>
         </div>
         <div style="display:grid; grid-template-columns: 1fr 1fr 1fr auto auto; gap:16px; align-items:end;">
-          <div class="field" style="margin:0;"><label>Status</label><select class="select"><option>Select Status</option><option>Published</option><option>Draft</option><option>Archived</option></select></div>
+          <div class="field" style="margin:0;"><label>Status</label><select class="select"><option>Select Status</option><option>Published</option><option>Draft</option></select></div>
           <div class="field" style="margin:0;"><label>Program</label><select class="select"><option>Select Program</option></select></div>
           <div class="field" style="margin:0;"><label>Institution Partner</label><select class="select"><option>Select Partner</option></select></div>
           <button class="btn btn-outline btn-md">Filter</button>
@@ -39,50 +39,38 @@
       <div class="card">
         <p class="count-line">6 collaboratives found</p>
         <table class="table">
-          <thead><tr><th>Name</th><th>Status</th><th>Institution Partners</th><th>Programs</th><th>Created</th><th>Updated</th><th></th></tr></thead>
+          <thead><tr><th>Name</th><th>Status</th><th>Institution Partners</th><th>Programs</th><th>Created</th><th>Updated</th></tr></thead>
           <tbody>
             <tr>
               <td><a class="name-link" href="program-detail.html">Southern CA Health Sciences Network</a></td>
               <td><span class="badge badge-draft">Draft</span></td>
               <td>UCLA<br>USC</td>
-              <td>12</td><td>2026-05-05</td><td>2026-05-05</td>
-              <td><button class="row-menu" aria-label="Row actions">&#8942;</button></td>
-            </tr>
+              <td>12</td><td>2026-05-05</td><td>2026-05-05</td>            </tr>
             <tr>
               <td><a class="name-link" href="program-detail.html">Bay Area STEM Collaborative</a></td>
               <td><span class="badge badge-published">Published</span></td>
               <td>Stanford University<br>UC Berkeley<br>San Jose State University</td>
-              <td>2</td><td>2024-06-18</td><td>2024-06-18</td>
-              <td><button class="row-menu" aria-label="Row actions">&#8942;</button></td>
-            </tr>
+              <td>2</td><td>2024-06-18</td><td>2024-06-18</td>            </tr>
             <tr>
               <td><a class="name-link" href="program-detail.html">Central Valley Education Alliance</a></td>
               <td><span class="badge badge-published">Published</span></td>
               <td>UC Riverside<br>Cal State San Bernardino<br>Loma Linda University</td>
-              <td>2</td><td>2024-06-18</td><td>2024-06-18</td>
-              <td><button class="row-menu" aria-label="Row actions">&#8942;</button></td>
-            </tr>
+              <td>2</td><td>2024-06-18</td><td>2024-06-18</td>            </tr>
             <tr>
               <td><a class="name-link" href="program-detail.html">Inland Empire Tech Collaborative</a></td>
               <td><span class="badge badge-draft">Draft</span></td>
               <td>UC San Francisco<br>Sonoma State University<br>Dominican University</td>
-              <td>2</td><td>2024-06-18</td><td>2024-06-18</td>
-              <td><button class="row-menu" aria-label="Row actions">&#8942;</button></td>
-            </tr>
+              <td>2</td><td>2024-06-18</td><td>2024-06-18</td>            </tr>
             <tr>
               <td><a class="name-link" href="program-detail.html">North Bay Workforce Partnership</a></td>
               <td><span class="badge badge-published">Published</span></td>
               <td>UC San Francisco<br>Sonoma State University<br>Touro University</td>
-              <td>2</td><td>2024-06-18</td><td>2024-06-18</td>
-              <td><button class="row-menu" aria-label="Row actions">&#8942;</button></td>
-            </tr>
+              <td>2</td><td>2024-06-18</td><td>2024-06-18</td>            </tr>
             <tr>
               <td><a class="name-link" href="program-detail.html">San Diego Regional Arts Network</a></td>
-              <td><span class="badge badge-archived">Archived</span></td>
+              <td><span class="badge badge-published">Published</span></td>
               <td>UC San Diego<br>SDSU<br>Point Loma Nazarene</td>
-              <td>2</td><td>2024-06-18</td><td>2024-06-18</td>
-              <td><button class="row-menu" aria-label="Row actions">&#8942;</button></td>
-            </tr>
+              <td>2</td><td>2024-06-18</td><td>2024-06-18</td>            </tr>
           </tbody>
         </table>
         <div class="pager">
@@ -95,7 +83,7 @@
     </div>
   </main>
 </div>
-<script src="assets/app.js?v=14"></script>
+<script src="assets/app.js?v=15"></script>
 <script>mountChrome([{label:'Admin', href:'dashboard.html'}, {label:'Regional Collaboratives'}]);</script>
 </body>
 </html>
