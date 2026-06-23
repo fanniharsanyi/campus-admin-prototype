@@ -54,7 +54,8 @@
     <div class="tray-head"><h3>Add Course</h3><button class="tray-close" onclick="closeTray('trayCourse')" aria-label="Close">&times;</button></div>
     <div class="tray-body">
       <p class="muted" id="courseInto" style="font-size:12px; margin:0 0 16px;">Add a course from your institution.</p>
-      <div class="field"><label><span class="star">*</span> Institution</label><select class="select" id="c_inst"><option value="">Select an institution…</option><option>UCLA</option><option>USC</option><option>UC San Diego</option></select></div>
+      <div class="field"><label>Institution</label><input class="input" id="c_inst" disabled></div>
+      <p class="muted" style="font-size:12px; margin:-10px 0 16px;">Courses can only be added from your institution.</p>
       <div class="field"><label><span class="star">*</span> Course</label><select class="select" id="c_course"><option value="">Search a course</option><option>ENGL 101 — College Composition</option><option>ENGL 105 — Critical Reading &amp; Writing</option><option>PSYC 101 — Introduction to Psychology</option><option>PSYC 100 — General Psychology</option><option>MATH 110 — College Algebra</option><option>STAT 120 — Intro to Statistics</option></select></div>
       <div class="field"><label>Display Title</label><input class="input" id="c_title" placeholder="Display title"></div>
       <div class="field"><label><span class="star">*</span> Minimum Grade</label><select class="select" id="c_grade"><option value="">Select a grade</option><option>C</option><option>B</option><option>A</option></select></div>
@@ -76,7 +77,8 @@
   <div class="tray" role="dialog" aria-modal="true" aria-label="Add Subject">
     <div class="tray-head"><h3>Add Subject</h3><button class="tray-close" onclick="closeTray('traySubject')" aria-label="Close">&times;</button></div>
     <div class="tray-body">
-      <div class="field"><label><span class="star">*</span> Institution</label><select class="select" id="s_inst"><option value="">Select an institution…</option><option>UCLA</option><option>USC</option><option>UC San Diego</option></select></div>
+      <div class="field"><label>Institution</label><input class="input" id="s_inst" disabled></div>
+      <p class="muted" style="font-size:12px; margin:-10px 0 16px;">Subjects can only be added from your institution.</p>
       <div class="field"><label><span class="star">*</span> Subject (Course prefix)</label><input class="input" id="s_subject" placeholder="e.g. ENGL"></div>
       <div class="field"><label>Display Title</label><input class="input" id="s_title" placeholder="Display title"></div>
       <div class="field"><label><span class="star">*</span> Minimum Grade</label><select class="select" id="s_grade"><option value="">Select a grade</option><option>C</option><option>B</option><option>A</option></select></div>
@@ -100,13 +102,17 @@ mountChrome([{label:'Admin', href:'dashboard.html'}, {label:'Regional Collaborat
 // The same 3 requirements the program admin authored in the super-admin tool.
 // Each has its own combine ('all'=AND, 'any'=OR) and components; the campus
 // admin only adds the courses from their institution. ?req picks which one.
+// This campus admin belongs to ONE institution — every course/subject they add
+// comes from it (the institution field in the trays is locked to this value).
+const INSTITUTION = 'UC San Diego';
+
 const REQS = {
   'English Composition': {
     title:'English Composition', credit:'4', sub:'Complete one approved English composition course.', home:false, combine:'all',
     slots:[
       { kind:'component', name:'Required Core', rule:'Pick 1 course · Min Grade C', courses:[
-        {course:'ENGL 101 — College Composition', inst:'UCLA', grade:'C', home:false},
-        {course:'ENGL 105 — Critical Reading & Writing', inst:'USC', grade:'C', home:false},
+        {course:'ENGL 101 — College Composition', inst:INSTITUTION, grade:'C', home:false},
+        {course:'ENGL 105 — Critical Reading & Writing', inst:INSTITUTION, grade:'C', home:false},
       ]},
     ],
   },
@@ -114,16 +120,16 @@ const REQS = {
     title:'Introduction to Psychology', credit:'4', sub:'Complete one approved introductory psychology course.', home:false, combine:'all',
     slots:[
       { kind:'component', name:'Required Core', rule:'Pick 1 course · Min Grade C', courses:[
-        {course:'PSYC 101 — Introduction to Psychology', inst:'UCLA', grade:'C', home:false},
-        {course:'PSYC 100 — General Psychology', inst:'USC', grade:'C', home:false},
+        {course:'PSYC 101 — Introduction to Psychology', inst:INSTITUTION, grade:'C', home:false},
+        {course:'PSYC 100 — General Psychology', inst:INSTITUTION, grade:'C', home:false},
       ]},
     ],
   },
   'General Education: Mathematics': {
     title:'General Education: Mathematics', credit:'3', sub:'Complete one approved college-level mathematics course.', home:true, combine:'any',
     slots:[
-      { kind:'component', name:'College Algebra path', rule:'Pick 1 course · Min Grade C', courses:[ {course:'MATH 110 — College Algebra', inst:'UC San Diego', grade:'C', home:true} ] },
-      { kind:'component', name:'Statistics path', rule:'Pick 1 course · Min Grade C', courses:[ {course:'STAT 120 — Intro to Statistics', inst:'UC San Diego', grade:'C', home:true} ] },
+      { kind:'component', name:'College Algebra path', rule:'Pick 1 course · Min Grade C', courses:[ {course:'MATH 110 — College Algebra', inst:INSTITUTION, grade:'C', home:true} ] },
+      { kind:'component', name:'Statistics path', rule:'Pick 1 course · Min Grade C', courses:[ {course:'STAT 120 — Intro to Statistics', inst:INSTITUTION, grade:'C', home:true} ] },
     ],
   },
 };
@@ -137,6 +143,10 @@ document.getElementById('d_credit').value = selected.credit;
 document.getElementById('d_sub').value = selected.sub;
 if (selected.home) document.getElementById('d_home_wrap').style.display = '';
 document.title = 'Define Requirement Details · ' + selected.title;
+
+// Lock the tray institution fields to this campus admin's institution.
+document.getElementById('c_inst').value = INSTITUTION;
+document.getElementById('s_inst').value = INSTITUTION;
 
 let requirements = [ selected ];
 let target = null; // { ri, ci } — ci is a component index or 'direct'
@@ -199,26 +209,27 @@ function getV(id){ const e=document.getElementById(id); return e?e.value.trim():
 
 function openCourse(ri, ci){
   target = { ri, ci };
-  ['c_inst','c_course','c_title','c_grade'].forEach(id=>setV(id,''));
+  ['c_course','c_title','c_grade'].forEach(id=>setV(id,''));
+  setV('c_inst', INSTITUTION);
   document.getElementById('c_home').checked = false;
   document.getElementById('courseInto').textContent =
     (ci==='direct') ? 'Add a course from your institution that fulfills this requirement.'
                     : 'Add a course from your institution into the "'+requirements[ri].slots[ci].name+'" component.';
   document.getElementById('trayCourse').classList.add('show');
 }
-function openSubject(ri){ target={ ri, ci:'direct' }; ['s_inst','s_subject','s_title','s_grade','s_level'].forEach(id=>setV(id,'')); setV('s_pick','1'); document.getElementById('traySubject').classList.add('show'); }
+function openSubject(ri){ target={ ri, ci:'direct' }; ['s_subject','s_title','s_grade','s_level'].forEach(id=>setV(id,'')); setV('s_inst', INSTITUTION); setV('s_pick','1'); document.getElementById('traySubject').classList.add('show'); }
 function closeTray(id){ document.getElementById(id).classList.remove('show'); }
 
 function saveCourse(){
-  if(!getV('c_inst')||!getV('c_course')||!getV('c_grade')){ liveToast('Pick an institution, course, and minimum grade'); return; }
-  const c = {course:getV('c_course'), inst:getV('c_inst'), title:getV('c_title'), grade:getV('c_grade'), home:document.getElementById('c_home').checked};
+  if(!getV('c_course')||!getV('c_grade')){ liveToast('Pick a course and minimum grade'); return; }
+  const c = {course:getV('c_course'), inst:INSTITUTION, title:getV('c_title'), grade:getV('c_grade'), home:document.getElementById('c_home').checked};
   const r = requirements[target.ri];
   if(target.ci==='direct') r.slots.push({kind:'course', ...c}); else r.slots[target.ci].courses.push(c);
   render(); closeTray('trayCourse'); liveToast('Course added');
 }
 function saveSubject(){
-  if(!getV('s_inst')||!getV('s_subject')||!getV('s_grade')||!getV('s_level')){ liveToast('Fill institution, subject, grade, and level'); return; }
-  requirements[target.ri].slots.push({kind:'subject', inst:getV('s_inst'), subject:getV('s_subject'), title:getV('s_title')||getV('s_subject'), grade:getV('s_grade'), level:getV('s_level'), pick:getV('s_pick')});
+  if(!getV('s_subject')||!getV('s_grade')||!getV('s_level')){ liveToast('Fill subject, grade, and level'); return; }
+  requirements[target.ri].slots.push({kind:'subject', inst:INSTITUTION, subject:getV('s_subject'), title:getV('s_title')||getV('s_subject'), grade:getV('s_grade'), level:getV('s_level'), pick:getV('s_pick')});
   render(); closeTray('traySubject'); liveToast('Subject added');
 }
 function removeCompCourse(ri,ci,idx){ requirements[ri].slots[ci].courses.splice(idx,1); render(); }
