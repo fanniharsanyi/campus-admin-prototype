@@ -114,23 +114,28 @@ mountChrome([{label:'Admin', href:'dashboard.html'}, {label:'Regional Collaborat
 const reqBody = document.getElementById('reqBody');
 const eye = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
 const pencil = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>`;
-const acts = `<a class="rq-act" href="#">${eye} Preview</a><a class="rq-act" href="define-requirement-details.html">${pencil} Define details</a>`;
+const actsFor = (name) => `<a class="rq-act" href="#">${eye} Preview</a><a class="rq-act" href="define-requirement-details.html?req=${encodeURIComponent(name)}">${pencil} Define details</a>`;
 reqBody.innerHTML = `
   <table class="req-table" style="margin-top:16px;">
     <thead><tr><th>Requirements</th><th class="cred">Credits</th><th class="acts"></th></tr></thead>
     <tbody>
       <tr class="group"><td colspan="3">General Education Requirements</td></tr>
       <tr>
-        <td>English Composition <span class="tag-hio">Home institution only</span></td>
+        <td>English Composition</td>
         <td class="cred">4</td>
-        <td class="acts">${acts}</td>
+        <td class="acts">${actsFor('English Composition')}</td>
       </tr>
       <tr>
         <td>Introduction to Psychology</td>
         <td class="cred">4</td>
-        <td class="acts">${acts}</td>
+        <td class="acts">${actsFor('Introduction to Psychology')}</td>
       </tr>
-      <tr class="total"><td>Grand Total Credits</td><td class="cred">8</td><td></td></tr>
+      <tr>
+        <td>General Education: Mathematics <span class="tag-hio">Home institution only</span></td>
+        <td class="cred">3</td>
+        <td class="acts">${actsFor('General Education: Mathematics')}</td>
+      </tr>
+      <tr class="total"><td>Grand Total Credits</td><td class="cred">11</td><td></td></tr>
     </tbody>
   </table>`;
 
